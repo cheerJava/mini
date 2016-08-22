@@ -1,0 +1,204 @@
+.navbar {
+	-webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid #d4d4d4;
+}
+
+.sidebar-nav {
+	position: fixed;
+	width: 200px;
+	left: 15px;
+	bottom: 0;
+	top: 61px;
+	padding: 9px 0;
+}
+
+.page-body {
+	margin-left: 200px;
+	margin-top: 10px;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	position: relative;
+	word-wrap: break-word;
+}
+
+.account .user-title {
+	text-align: right;
+}
+
+.account .dropdown-menu {
+	background-color: #3c3c3c;
+	border: none;
+}
+
+.account .dropdown-menu li a {
+	color: #ffffff;
+	font-weight: 400;
+	font-size: 13px;
+	padding: 4px 15px;
+}
+
+.subHeader {
+	padding: 5px;
+}
+
+.row-padding {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.text-strong-red {
+	color: red;
+	font-weight: bolder;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.text-strong-default {
+	color: black;
+	font-weight: bolder;
+}
+
+.error-tip {
+	color: #a94442;
+}
+
+@media ( min-width : 992px) {
+	.col-md-left {
+		padding-right: 5px;
+	}
+	.col-md-middle {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.col-md-right {
+		padding-left: 5px;
+	}
+}
+
+.col-xs-left {
+	padding-right: 5px;
+}
+
+.col-xs-middle {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.col-xs-right {
+	padding-left: 5px;
+}
+
+.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control {
+	cursor: default !important;
+}
+
+.form-control.datepicker {
+	cursor: pointer !important;
+}
+
+.col-xs-12.col-sm-9{
+	/* width:1115px;height:570px; */
+	overflow-y:auto;
+}
+
+#main-nav {
+	margin-left: 1px;
+}
+
+/*一级菜单默认效果*/
+#main-nav.nav-tabs.nav-stacked>li>a {
+	background: -moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+	padding: 10px 10px;
+	font-size: 14px;
+	/*color: #333333;
+	background: #f0f0f0;
+	border: 1px solid #D5D5D5;*/
+	border-radius: 4px;
+}
+
+#main-nav.nav-tabs.nav-stacked>li>a>span {
+	color: #fff;
+}
+
+/*一级菜单悬停效果*/
+#main-nav.nav-tabs.nav-stacked>li>a:active, #main-nav.nav-tabs.nav-stacked>li>a:hover
+	{
+	color: #333333;
+	background: #e4fefa;
+	/*border-color: #2B2E33;*/
+}
+
+/*一级菜单选中效果*/
+#main-nav.nav-tabs.nav-stacked>li>a[class="nav-header first-menu"],
+#main-nav.nav-tabs.nav-stacked>li>a[class="nav-header enterprise-menu"],
+#main-nav.nav-tabs.nav-stacked>li>a[class="nav-header tenant-menu"],
+#main-nav.nav-tabs.nav-stacked>li>a[class="nav-header system-menu"]
+	{
+	color: #FFFFFF !important;
+	background: #4c8cc3 !important;
+}
+
+#main-nav.nav-tabs.nav-stacked>li.active>a, #main-nav.nav-tabs.nav-stacked>li>a:hover>span
+	{
+	color: #FFF;
+}
+
+#main-nav.nav-tabs.nav-stacked>li {
+	margin-bottom: 4px;
+}
+
+/*定义二级菜单样式*/
+.secondmenu a {
+	font-size: 14px;
+	color: #333333;
+	text-align: left;
+}
+
+.secondmenu a:hover{
+	/*color: #6e6e6e !important;*/
+	background-color: #e4f4fa !important;
+}
+
+.navbar-static-top {
+	background-color: #212121;
+	margin-bottom: 5px;
+}
+
+.navbar-brand {
+	background: url('') no-repeat 10px 8px;
+	display: inline-block;
+	vertical-align: middle;
+	padding-left: 50px;
+	color: #fff;
+}
+
+/*控制菜单箭头*/
+.nav-header.collapsed>span.glyphicon-chevron-toggle:before {
+	content: "\e114";
+	color:#B3B3B3;
+}
+
+.nav-header>span.glyphicon-chevron-toggle:before {
+	content: "\e113";
+	color:#ffffff;
+}
+
+/*一级菜单默认背景*/
+.first-menu{
+	color:#333333;
+	background: #f0f0f0;
+}
+
+.enterprise-menu,.tenant-menu{
+	color:#4a3010;
+	background: #eee8d6 ;
+}
+
+.system-menu{
+	color:#4a3010;
+	background: #ebc89a;
+}

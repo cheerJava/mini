@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- namespace必须指向dao接口 -->
+<mapper namespace="com.cheer.mini.ums.dao.UserDao">
+	
+	<select id="getByAccount" parameterType="String" resultType="User">
+		SELECT
+		id,name,nickname,account,password,salt,gender,account_type_fk,date_create,date_update,creator_fk,updater_fk,is_valid
+		FROM ums_user
+		WHERE account =#{account}
+		AND is_valid = 1
+	</select>
+	
+	<select id="get" parameterType="String" resultType="User">
+		SELECT
+		id,name,nickname,account,password,salt,gender,account_type_fk,date_create,date_update,creator_fk,updater_fk,is_valid
+		FROM ums_user
+		WHERE id =#{id}
+		AND is_valid = 1
+	</select>
+
+	<insert id="save" parameterType="User">
+		INSERT INTO ums_user
+		(
+		id,
+		name,
+		nickname,
+		account,
+		password,
+		salt,
+		gender,
+		account_type_fk,
+		date_create,
+		date_update,
+		creator_fk,
+		updater_fk,
+		is_valid
+		)
+		VALUES
+		(
+		#{id},
+		#{name},
+		#{nickname},
+		#{account},
+		#{password},
+		#{salt},
+		#{gender},
+		#{accountTypeFk}
+		#{dateCreate},
+		#{dateUpdate},
+		#{creatorFk},
+		#{updaterFk},
+		#{isValid}
+		)
+
+	</insert>
+	<insert id="insertUser" parameterType="User">
+		insert into shopcenterdb.user(name,password,account)
+		values(#{name},#{password},#{account})
+	</insert>
+	<select id="listUser" parameterType="String" resultType="User">
+		SELECT * FROM ums_user
+	</select>
+</mapper> 
