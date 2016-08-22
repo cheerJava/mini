@@ -1,4 +1,4 @@
-package com.cheer.mini.base.util;
+﻿package com.cheer.mini.base.util;
 
 import java.util.Random;
 
@@ -30,7 +30,7 @@ public class StringUtil {
     }
 
     /**
-     * 创建32位UUID字符�?
+     * 创建32位UUID字符
      * 
      * @param length
      * @return
@@ -53,7 +53,7 @@ public class StringUtil {
     }
 
     /**
-     * 判断字符是否为非空字�?
+     * 判断字符是否为非空
      * 
      * @param str
      * @return
@@ -67,7 +67,4 @@ public class StringUtil {
     		System.out.println(createUUID());
     	}
     }
-    
-    
-
 }
