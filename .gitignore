@@ -27,3 +27,5 @@ META-INF/
 */.idea/
 
 *.iml
+
+*jdbc.properties
