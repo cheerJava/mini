@@ -27,3 +27,5 @@ META-INF/
 */.idea/
 
 *.iml
+
+mini/src/resources/config/jdbc.properties
