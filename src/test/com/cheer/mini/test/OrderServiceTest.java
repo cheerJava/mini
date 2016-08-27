@@ -41,7 +41,7 @@ public class OrderServiceTest {
     	
     	{
 	    	OrderItem item = new OrderItem();
-	    	item.setProductName("Æ»¹û");
+	    	item.setProductName("è‹¹æžœ");
 	    	item.setNumber(3);
 	    	item.setPrice(new BigDecimal("10"));
 	    	items.add(item);
@@ -49,7 +49,7 @@ public class OrderServiceTest {
     	
     	{
 	    	OrderItem item = new OrderItem();
-	    	item.setProductName("Ïã½¶");
+	    	item.setProductName("é¦™è•‰");
 	    	item.setNumber(5);
 	    	item.setPrice(new BigDecimal("20"));
 	    	items.add(item);
@@ -57,7 +57,7 @@ public class OrderServiceTest {
     	
     	{
 	    	OrderItem item = new OrderItem();
-	    	item.setProductName("Î÷¹Ï");
+	    	item.setProductName("è¥¿ç“œ");
 	    	item.setNumber(2);
 	    	item.setPrice(new BigDecimal("30"));
 	    	items.add(item);
