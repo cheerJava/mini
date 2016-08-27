@@ -35,7 +35,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Æ»¹û");
+		    	item.setProductName("è‹¹æžœ");
 		    	item.setNumber(3);
 		    	item.setPrice(new BigDecimal("10"));
 		    	items.add(item);
@@ -43,7 +43,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Ïã½¶");
+		    	item.setProductName("é¦™è•‰");
 		    	item.setNumber(5);
 		    	item.setPrice(new BigDecimal("20"));
 		    	items.add(item);
@@ -51,7 +51,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Î÷¹Ï");
+		    	item.setProductName("è¥¿ç“œ");
 		    	item.setNumber(2);
 		    	item.setPrice(new BigDecimal("30"));
 		    	items.add(item);
@@ -74,7 +74,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Æ»¹û");
+		    	item.setProductName("è‹¹æžœ");
 		    	item.setNumber(3);
 		    	item.setPrice(new BigDecimal("10"));
 		    	items.add(item);
@@ -82,7 +82,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Ïã½¶");
+		    	item.setProductName("é¦™è•‰");
 		    	item.setNumber(5);
 		    	item.setPrice(new BigDecimal("20"));
 		    	items.add(item);
@@ -90,7 +90,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Î÷¹Ï");
+		    	item.setProductName("è¥¿ç“œ");
 		    	item.setNumber(2);
 		    	item.setPrice(new BigDecimal("30"));
 		    	items.add(item);
@@ -111,7 +111,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Æ»¹û");
+		    	item.setProductName("è‹¹æžœ");
 		    	item.setNumber(3);
 		    	item.setPrice(new BigDecimal("10"));
 		    	items.add(item);
@@ -119,7 +119,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Ïã½¶");
+		    	item.setProductName("é¦™è•‰");
 		    	item.setNumber(5);
 		    	item.setPrice(new BigDecimal("20"));
 		    	items.add(item);
@@ -127,7 +127,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Î÷¹Ï");
+		    	item.setProductName("è¥¿ç“œ");
 		    	item.setNumber(2);
 		    	item.setPrice(new BigDecimal("30"));
 		    	items.add(item);
@@ -148,7 +148,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Æ»¹û");
+		    	item.setProductName("è‹¹æžœ");
 		    	item.setNumber(3);
 		    	item.setPrice(new BigDecimal("10"));
 		    	items.add(item);
@@ -156,7 +156,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Ïã½¶");
+		    	item.setProductName("é¦™è•‰");
 		    	item.setNumber(5);
 		    	item.setPrice(new BigDecimal("20"));
 		    	items.add(item);
@@ -164,7 +164,7 @@ public class TaiShanController {
 	    	
 	    	{
 		    	OrderItem item = new OrderItem();
-		    	item.setProductName("Î÷¹Ï");
+		    	item.setProductName("è¥¿ç“œ");
 		    	item.setNumber(2);
 		    	item.setPrice(new BigDecimal("30"));
 		    	items.add(item);
@@ -226,8 +226,21 @@ public class TaiShanController {
 	};
 	
 	@RequestMapping("/save")
-	public String save(@ModelAttribute TaishanView view){
-		return "taishan/list";
+	public String save(@ModelAttribute TaishanView view ,Model model ){
+		logger.info("Input Param [view] -> " + view);
+		//TODO CALL DAO SAVE METHOD
+		if(view.getEditInfo()!=null && 
+				view.getEditInfo().getId()!=null
+				&& view.getEditInfo().getId()!=""){
+			for(int i=0;i<orderList.size();i++){
+				Order order = orderList.get(i);
+				if(order.getId().equals(view.getEditInfo().getId())){
+					orderList.set(i,view.getEditInfo());
+					break;
+				}
+			}
+		}
+		return list(view, model);
 	};
 	
 	@RequestMapping("/delete")
