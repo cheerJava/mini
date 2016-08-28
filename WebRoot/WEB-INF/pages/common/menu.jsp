@@ -22,8 +22,8 @@ $(function(){
 	  <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
           <div class="list-group">
           	<a href="#" class="list-group-item" data-url="/taishan/list">Taishan</a>	
-            <a href="#" class="list-group-item" data-url="/tinglin/list">商品管理</a>
-            <a href="#" class="list-group-item" data-url="/yusHan/list">订单列表</a>
-            <a href="#" class="list-group-item" data-url="/loujiang/list">管理员用户列表</a>
+            <a href="#" class="list-group-item" data-url="/tinglin/list">商品管理</a><!-- fukuan,puweihua -->
+            <a href="#" class="list-group-item" data-url="/yushan/list">订单列表</a><!-- zhangli,shiwei -->
+            <a href="#" class="list-group-item" data-url="/loujiang/list">管理员用户列表</a><!-- luzhiming,liugaoming,zheng -->
           </div>
         </div><!--/.sidebar-offcanvas-->
