@@ -25,11 +25,11 @@
 	<update id="update" parameterType="OrderItem">
 		UPDATE ums_order_item SET
 			order_id=#{orderId}
-			<if test="amount!=null and amount!=''">
-				amount = #{amount}
+			<if test="productName!=null and productName!=''">
+				,product_name = #{productName}
 			</if>
 			<if test="number!=0">
-				,title = #{number}
+				,number = #{number}
 			</if>
 			<if test="price!=null and price!=''">
 				,price = #{price}
