@@ -13,11 +13,13 @@
 		<result column="amount" property="amount" jdbcType="DECIMAL" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
 		<collection property="items" javaType="java.util.ArrayList" 
 			ofType="com.cheer.mini.ums.model.OrderItem">
 			<result column="item_id" property="id" jdbcType="VARCHAR" />
 			<result column="item_order_id" property="orderId" jdbcType="VARCHAR" />
 			<result column="item_number" property="number" jdbcType="INTEGER" />
+			<result column="item_price" property="price" jdbcType="DECIMAL" />
 			<result column="item_product_name" property="productName" 
 				jdbcType="VARCHAR" />
 		</collection>
@@ -29,9 +31,11 @@
 			a.amount,
 			a.title,
 			a.remark,
+			a.status,
 			b.id item_id,
 			b.order_id item_order_id,
 			b.number item_number,
+			b.price item_price,
 			b.product_name item_product_name
 		FROM ums_order a,ums_order_item b 
 		WHERE a.id = b.order_id
@@ -66,6 +70,23 @@
 		#{isValid}
 		)
 	</insert>
+	
+	<update id="update" parameterType="Order">
+		UPDATE ums_order SET
+			<if test="amount!=null and amount!=''">
+				amount = #{amount}
+			</if>
+			<if test="title!=null and title!=''">
+				,title = #{title}
+			</if>
+			<if test="remark!=null and remark!=''">
+				,remark = #{remark}
+			</if>
+			<if test="status != -1">
+				,status = #{status}
+			</if>
+			WHERE ID=#{id}
+	</update>
 	
 	<delete id="delete">
 		DELETE FROM ums_order where id=#{0,jdbcType=VARCHAR}

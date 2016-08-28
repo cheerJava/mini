@@ -47,6 +47,37 @@ public class OrderServiceImpl implements OrderService {
 			}
 		}
 	}
+
+	@Override
+	public List<Order> list(Order condition) {
+		return orderDao.list(condition);
+	}
+
+	@Override
+	public Order info(String orderId) {
+		return orderDao.getOrderInfo(orderId);
+	}
+
+	@Override
+	@Transactional
+	public void delete(String orderId) {
+		orderItemDao.deleteByOrderId(orderId);
+		orderDao.delete(orderId);
+	}
+
+	@Override
+	@Transactional
+	public void update(Order orderInfo) {
+		orderDao.update(orderInfo);
+		if(orderInfo.getItems()!=null
+				&& !orderInfo.getItems().isEmpty()){
+			for(int i=0;i<orderInfo.getItems().size();i++){
+				OrderItem item = orderInfo.getItems().get(i);
+				orderItemDao.update(item);
+				
+			}
+		}
+	}
 	
 	/***
 	public void commonProcess(){

@@ -43,7 +43,7 @@
 							<input type="hidden" value="${order.id}"
 								name="list[${loopStatus.index}].id">
 						</td>
-						<td><a href="#" onclick="editOrder(${order.id})" >${order.title}</a></td>
+						<td><a href="#" onclick="editOrder('${order.id}')" >${order.title}</a></td>
 						<td>${order.amount}</td>
 						<td>${order.status}</td>
 						<td>&nbsp;</td>

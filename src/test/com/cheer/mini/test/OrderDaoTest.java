@@ -34,15 +34,16 @@ public class OrderDaoTest {
 
 	@Test
 	public void testGetOrderInfo() {
-		Order order = orderDao.getOrderInfo("DJR88LITOEHZL75SFFIRA0JL77IVWHBQ");
+		Order order = orderDao.getOrderInfo("BGUBWUZY0G4XHJGYV8ITYGO2Z9TEB6EZ");
 		logger.debug(order);
 	}
 	
 	@Test
 	public void testList(){
 		Order condition = new Order();
+		//condition.setStatus(-1);
 		condition.setStatus(Order.ORDER_STATUS.DRAFT);
-		condition.setTitle("Uter7");
+		//condition.setTitle("Uter7");
 		List<Order> list = orderDao.list(condition);
 		logger.info("List size : " + list.size());
 		logger.info("List centent : " + list);
