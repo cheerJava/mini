@@ -1,11 +1,16 @@
 package com.cheer.mini.ums.model;
 
 import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import java.math.BigDecimal;
 
 import com.cheer.mini.base.model.BaseEntity;
 
 public class Order extends BaseEntity {
+	
+	private transient Logger logger = Logger.getLogger(getClass());
 	
 	public interface ORDER_STATUS {
 		int DRAFT = 0;
@@ -29,13 +34,16 @@ public class Order extends BaseEntity {
 	
 	private List<OrderItem> items;
 	
-	
+	public Order(){
+		logger.info("new Ordrer ()");
+	}
 
 	public Boolean getSelected() {
 		return selected;
 	}
 
 	public void setSelected(Boolean selected) {
+		logger.info("new ordrer.setSelected ("+selected+")");
 		this.selected = selected;
 	}
 
@@ -44,6 +52,7 @@ public class Order extends BaseEntity {
 	}
 
 	public void setId(String id) {
+		logger.info("new ordrer.setId ()");
 		this.id = id;
 	}
 
@@ -76,6 +85,7 @@ public class Order extends BaseEntity {
 	}
 
 	public void setStatus(int status) {
+		logger.info("new ordrer.setStatus ()");
 		this.status = status;
 	}
 	

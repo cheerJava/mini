@@ -4,6 +4,10 @@
 <!-- namespace必须指向dao接口 -->
 <mapper namespace="com.cheer.mini.ums.dao.OrderDao">
 	
+	<sql id="common_fields">
+		 id,amount,title,remark,status
+	</sql>
+	
 	<resultMap id="orderInfoResult" type="com.cheer.mini.ums.model.Order">
 		<result column="id" property="id" jdbcType="VARCHAR" />
 		<result column="amount" property="amount" jdbcType="DECIMAL" />
@@ -62,4 +66,25 @@
 		#{isValid}
 		)
 	</insert>
+	
+	<delete id="delete">
+		DELETE FROM ums_order where id=#{0,jdbcType=VARCHAR}
+	</delete>
+	
+	<select id="list" parameterType="Order" resultType="Order">
+		SELECT 
+			<include refid="common_fields" />
+		FROM
+			ums_order
+		<where>
+			1=1
+			<if test="status != -1">
+				and status = #{status}
+			</if>
+			<if test="title!=null and title!=''">
+				and title like CONCAT(#{title},'%')
+			</if>
+		</where>
+	</select>
+	
 </mapper>

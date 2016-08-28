@@ -1,5 +1,7 @@
 package com.cheer.mini.test;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -35,4 +37,18 @@ public class OrderDaoTest {
 		Order order = orderDao.getOrderInfo("DJR88LITOEHZL75SFFIRA0JL77IVWHBQ");
 		logger.debug(order);
 	}
+	
+	@Test
+	public void testList(){
+		Order condition = new Order();
+		condition.setStatus(Order.ORDER_STATUS.DRAFT);
+		condition.setTitle("Uter7");
+		List<Order> list = orderDao.list(condition);
+		logger.info("List size : " + list.size());
+		logger.info("List centent : " + list);
+		
+	}
+	
+	
+	
 }

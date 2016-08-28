@@ -7,6 +7,8 @@
 <layout:Default pageId="orderInfo">
 	<form:form action="${pageContext.request.contextPath}/taishan/save"
 		method="post" modelAttribute="view">
+		
+		<form:hidden path="condition.status" />
 		<form:hidden path="editInfo.id" />
 		<table width="100%">
 			<tr>

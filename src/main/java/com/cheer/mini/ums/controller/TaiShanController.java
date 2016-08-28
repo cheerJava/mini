@@ -2,6 +2,7 @@ package com.cheer.mini.ums.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -244,8 +245,23 @@ public class TaiShanController {
 	};
 	
 	@RequestMapping("/delete")
-	public String delet(@ModelAttribute TaishanView view){
-		return "taishan/list";
+	public String delet(@ModelAttribute TaishanView view, Model model){
+		logger.info("Input Param [view] -> " + view);
+		if(view.getList()!=null 
+				&& !view.getList().isEmpty()){
+			for(Order selectOrder  : view.getList()){
+				if(selectOrder.getSelected()){
+					String id = selectOrder.getId();
+					for(Iterator<Order> it = orderList.iterator();it.hasNext();){
+						Order dataItem = it.next();
+						if(dataItem.getId().equals(id)){
+							it.remove();
+						}
+					}
+				}
+			}
+		}
+		return list(view, model);
 	};
 	
 	

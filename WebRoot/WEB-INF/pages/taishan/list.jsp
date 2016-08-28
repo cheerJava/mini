@@ -9,14 +9,16 @@
 	<form:form action="${pageContext.request.contextPath}/taishan/list" 
 		method="post" modelAttribute="view">
 		<input type="hidden" name="editInfo.id" id="editInfoId" />
+		<label>Title :</label>
+		<form:input path="condition.title"/>
 		<label>Status :</label>
 		<select name="condition.status">
-			<option value="-1" <c:if test="${view.condition.status ==-1}">checked="checked"</c:if>>All</option>
-			<option value="0" <c:if test="${view.condition.status ==0}">checked="checked"</c:if>>Draf0t</option>
-			<option value="1" <c:if test="${view.condition.status ==1}">checked="checked"</c:if>>Commit</option>
-			<option value="2" <c:if test="${view.condition.status ==2}">checked="checked"</c:if>>Payment</option>
-			<option value="3" <c:if test="${view.condition.status ==3}">checked="checked"</c:if>>Received</option>
-			<option value="4" <c:if test="${view.condition.status ==4}">checked="checked"</c:if>>Close</option>
+			<option value="-1" <c:if test="${view.condition.status ==-1}">selected="true"</c:if>>All</option>
+			<option value="0" <c:if test="${view.condition.status ==0}">selected="true"</c:if>>Draf0t</option>
+			<option value="1" <c:if test="${view.condition.status ==1}">selected="true"</c:if>>Commit</option>
+			<option value="2" <c:if test="${view.condition.status ==2}">selected="true"</c:if>>Payment</option>
+			<option value="3" <c:if test="${view.condition.status ==3}">selected="true"</c:if>>Received</option>
+			<option value="4" <c:if test="${view.condition.status ==4}">selected="true"</c:if>>Close</option>
 		</select>
 		</br>
 		<input type="submit" value="Search" >
@@ -52,6 +54,8 @@
 			<tr><td colspan="5">No Record(s) Watch</td></tr>
 			</c:if>
 		</table>
+		<br />
+		<input type="button" value="Delete" onclick="deleteOrders()">
 	</form:form>
 	
 	<script>
@@ -60,6 +64,13 @@
 		document.forms[0].editInfoId.value = orderId;
 		document.forms[0].submit();
 	}
+	
+	function deleteOrders(){
+		document.forms[0].action = "${pageContext.request.contextPath}/taishan/delete";
+		document.forms[0].submit();
+	}
+	
+	
 	</script>
 	
 </layout:Default>

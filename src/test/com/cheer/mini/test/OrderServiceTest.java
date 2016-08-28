@@ -30,10 +30,15 @@ public class OrderServiceTest {
     
     @Test
     public void testSave() {
-    	
+    	for(int i=0;i<10;i++){
+    		saveOrder(i);
+    	}
+    }
+    
+    private void saveOrder(int i){	
     	Order orderInfo = new Order();
     	
-    	orderInfo.setTitle("Uter's Order");
+    	orderInfo.setTitle("Uter"+i+" 's Order");
     	orderInfo.setAmount(new BigDecimal("180.00").
     			setScale(2, BigDecimal.ROUND_HALF_UP));
         
@@ -67,4 +72,7 @@ public class OrderServiceTest {
     	
     	orderService.save(orderInfo);
     }
+    
+    
+    
 }

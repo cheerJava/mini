@@ -20,5 +20,6 @@
 			<jsp:include page="../../pages/common/footer.jsp" />
 		</div>
 		<!--/.container-->
+	</div>
 </body>
 </html>
