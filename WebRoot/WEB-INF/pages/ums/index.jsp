@@ -5,7 +5,7 @@
   <head>
 	<jsp:include page="../common/meta.jsp" />
 	<jsp:include page="../common/resources.jsp" />
-	<script src="${path }/scripts/demo/portal.js" ></script>
+	<script src="${path}/scripts/demo/portal.js" ></script>
   </head>
   
    <body>
@@ -85,13 +85,15 @@
             </div><!--/.col-xs-6.col-lg-4-->
           </div><!--/row-->
         </div><!--/.col-xs-12.col-sm-9-->
-		
-       
       </div><!--/row-->
-
      <jsp:include page="../common/footer.jsp" />
-
     </div><!--/.container-->
-    
   </body>
+  
+  <script>
+  $(function(){
+	 $("#sidebar .list-group :first-child").addClass("active"); 
+  });
+  </script>
+  
 </html>
