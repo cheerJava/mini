@@ -1,8 +1,6 @@
 package com.cheer.mini.ums.controller;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cheer.mini.ums.dto.TaishanView;
 import com.cheer.mini.ums.model.Order;
-import com.cheer.mini.ums.model.OrderItem;
-import com.cheer.mini.ums.model.User;
 import com.cheer.mini.ums.service.OrderService;
 
 @Controller

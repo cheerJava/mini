@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cheer.mini.base.util.StringUtil;
-import com.cheer.mini.ums.dao.OrderDao;
-import com.cheer.mini.ums.dao.OrderItemDao;
+import com.cheer.mini.ums.dao.OrderItemMapper;
+import com.cheer.mini.ums.dao.OrderMapper;
 import com.cheer.mini.ums.model.Order;
+import com.cheer.mini.ums.model.OrderExample;
+import com.cheer.mini.ums.model.OrderExample.Criteria;
 import com.cheer.mini.ums.model.OrderItem;
+import com.cheer.mini.ums.model.OrderItemExample;
 import com.cheer.mini.ums.service.OrderService;
 
 @Service
@@ -21,9 +24,9 @@ public class OrderServiceImpl implements OrderService {
 	private Logger logger = Logger.getLogger(getClass());
 	
 	@Autowired
-	private OrderDao orderDao;
+	private OrderMapper orderMapper;
 	@Autowired
-	private OrderItemDao orderItemDao;
+	private OrderItemMapper orderItemMapper;
 	
 	private static String ADMIN_ID="ADMIN1E35D8911E68C9F3C970ED7EF76";
 	
@@ -36,44 +39,66 @@ public class OrderServiceImpl implements OrderService {
 		orderInfo.setUpdaterFk(ADMIN_ID);
 		orderInfo.setDateCreate(new Date());
 		orderInfo.setDateUpdate(new Date());
-		orderDao.save(orderInfo);
+		orderMapper.insert(orderInfo);
 		if(orderInfo.getItems()!=null 
 				&& !orderInfo.getItems().isEmpty()){
 			for(int i=0;i<orderInfo.getItems().size();i++){
 				OrderItem item = orderInfo.getItems().get(i);
 				item.setId(StringUtil.createUUID());
 				item.setOrderId(orderInfo.getId());
-				orderItemDao.save(item);
+				orderItemMapper.insert(item);
 			}
 		}
 	}
 
 	@Override
 	public List<Order> list(Order condition) {
-		return orderDao.list(condition);
+		OrderExample example = new OrderExample();
+		Criteria criteria = example.createCriteria();
+		if(condition!=null && StringUtil.notEmpty(condition.getTitle())){
+			criteria.andTitleLike(condition.getTitle() + "%");
+		}
+		if(condition!=null && condition.getStatus()!=-1){
+			criteria.andStatusEqualTo(new Byte(((byte)condition.getStatus())));
+		}
+		return orderMapper.selectByExample(example);
 	}
 
 	@Override
 	public Order info(String orderId) {
-		return orderDao.getOrderInfo(orderId);
+		Order rt = orderMapper.selectByPrimaryKey(orderId);
+		OrderItemExample oie = new OrderItemExample();
+		oie.createCriteria().andOrderIdEqualTo(orderId);
+		List<OrderItem> items = orderItemMapper.selectByExample(oie);
+		rt.setItems(items);
+		return rt;
 	}
 
 	@Override
 	@Transactional
 	public void delete(String orderId) {
-		orderItemDao.deleteByOrderId(orderId);
-		orderDao.delete(orderId);
+		OrderItemExample oie = new OrderItemExample();
+		oie.createCriteria().andOrderIdEqualTo(orderId);
+		List<OrderItem> items = orderItemMapper.selectByExample(oie);
+		if(items!=null && !items.isEmpty()){
+			for(int i=0;i<items.size();i++){
+				OrderItem item = items.get(i);
+				orderItemMapper.deleteByPrimaryKey(item.getId());
+			}
+		}
+		orderMapper.deleteByPrimaryKey(orderId);
 	}
 
 	@Override
 	@Transactional
 	public void update(Order orderInfo) {
-		orderDao.update(orderInfo);
+		
+		orderMapper.updateByPrimaryKey(orderInfo);
 		if(orderInfo.getItems()!=null
 				&& !orderInfo.getItems().isEmpty()){
 			for(int i=0;i<orderInfo.getItems().size();i++){
 				OrderItem item = orderInfo.getItems().get(i);
-				orderItemDao.update(item);
+				orderItemMapper.updateByPrimaryKey(item);
 				
 			}
 		}

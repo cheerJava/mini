@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.cheer.mini.base.Constants;
 import com.cheer.mini.base.exception.ServiceException;
 import com.cheer.mini.base.util.StringUtil;
-import com.cheer.mini.ums.dao.UserDao;
+import com.cheer.mini.ums.dao.UserMapper;
 import com.cheer.mini.ums.dto.request.CustomerUserCreateRequest;
 import com.cheer.mini.ums.dto.request.registerRequest;
 import com.cheer.mini.ums.model.User;
+import com.cheer.mini.ums.model.UserExample;
 import com.cheer.mini.ums.service.UserService;
 
 @Service
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private int hashIterations = 2;
 
     @Autowired
-    private UserDao userDao;
+    private UserMapper userMapper;
 
     public void encryptPassword(User user) {
         user.setSalt(randomNumberGenerator.nextBytes().toHex());
@@ -52,8 +53,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByAccount(String account) {
-        User user = userDao.getByAccount(account);
-        return user;
+    	
+    	UserExample example = new UserExample();
+    	example.createCriteria().andAccountEqualTo(account).andIsValidEqualTo(new Byte((byte)1));
+        List<User> list = userMapper.selectByExample(example);
+        if(list!=null){
+        	return list.iterator().next();
+        }
+        return null;
     }
 
     @Override
@@ -84,14 +91,14 @@ public class UserServiceImpl implements UserService {
         user.setNickname(userParam.getNickname());
         user.setPassword(userParam.getPassword());
         this.encryptPassword(user);
-        return userDao.save(user);
+        return userMapper.insert(user);
        
         
     }
 
 	@Override
 	public List<User> listUser() {
-		List<User> list=userDao.listUser();
+		List<User> list=userMapper.selectByExample(null);
 		return list;
 	}
 //	@Override
@@ -120,9 +127,12 @@ public class UserServiceImpl implements UserService {
 	        user.setNickname(userParam.getNickname());
 	        user.setPassword(userParam.getPassword());
 	        this.encryptPassword(user);
-	        return userDao.insertUser(user);
-	       
-	        
+	        int rt =userMapper.insert(user);
+	        if(rt == 1){
+	        	return user;
+	        }else{
+	        	return null;
+	        }
 	    }
 
 	@Override
