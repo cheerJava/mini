@@ -4,9 +4,18 @@ import com.cheer.mini.base.model.BaseEntity;
 import com.cheer.mini.base.util.StringUtil;
 
 public class User extends BaseEntity {
+	
+	public interface ORDER_USER {
+		int ALL = -1;
+		int Worker = 100;
+		int Admin = 200;
+	
+	}
 
     //private String id = StringUtil.createUUID();
-	private String id;
+	private Boolean selected = Boolean.FALSE;
+	
+	private String id=StringUtil.createUUID();
 	
     private String name;
 
@@ -20,17 +29,18 @@ public class User extends BaseEntity {
 
     private short gender;
 
-    private int accountTypeFk;
+    private int accountTypeFk=ORDER_USER.Worker;
 
+  
     public String getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getName() {
+	public String getName() {
         return name;
     }
 
@@ -94,13 +104,22 @@ public class User extends BaseEntity {
     	return this.toString();
     }
 
+	public Boolean getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Boolean selected) {
+		this.selected = selected;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", nickname=" + nickname
-				+ ", account=" + account + ", password=" + password + ", salt="
-				+ salt + ", gender=" + gender + ", accountTypeFk="
+		return "User [selected=" + selected + ", id=" + id + ", name=" + name + ", nickname=" + nickname + ", account="
+				+ account + ", password=" + password + ", salt=" + salt + ", gender=" + gender + ", accountTypeFk="
 				+ accountTypeFk + "]";
 	}
+
+
 
     
 }

@@ -22,13 +22,14 @@ public interface UserService {
 	public User adminLogin(String account, String password)
 			throws ServiceException;
 
-	public int createUser(CustomerUserCreateRequest userParam)
-			throws ServiceException;
+	public List<User> listUser(User condition);
 
-	public List<User> listUser();
+	public User info(String userId);
+	
+	public void deleteByPrimaryKey(String userId);
 
-	public User insertUser(User user);
+	public void updateByPrimaryKey(User record);
 
-	public User insertcreatUser(User user) throws ServiceException;
+	User insertcreatUser(User userParam) throws ServiceException;
 
 }

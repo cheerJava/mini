@@ -73,7 +73,7 @@
     delete from ums_user
     where id = #{id,jdbcType=CHAR}
   </delete>
-  <insert id="insert" parameterType="com.cheer.mini.ums.model.User" >
+   <insert id="insert" parameterType="com.cheer.mini.ums.model.User" >
     insert into ums_user (id, name, nickname, 
       account, password, salt, 
       gender, account_type_fk, date_create, 
@@ -84,7 +84,8 @@
       #{gender,jdbcType=TINYINT}, #{accountTypeFk,jdbcType=INTEGER}, #{dateCreate,jdbcType=TIMESTAMP}, 
       #{dateUpdate,jdbcType=TIMESTAMP}, #{creatorFk,jdbcType=VARCHAR}, #{updaterFk,jdbcType=VARCHAR}, 
       #{isValid,jdbcType=TINYINT})
-  </insert>
+      
+  </insert> 
   <insert id="insertSelective" parameterType="com.cheer.mini.ums.model.User" >
     insert into ums_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -228,4 +229,8 @@
       is_valid = #{isValid,jdbcType=TINYINT}
     where id = #{id,jdbcType=CHAR}
   </update>
+  <select id="userlist" resultMap="BaseResultMap">
+  SELECT * FROM ums_user
+  </select>
+  
 </mapper>
