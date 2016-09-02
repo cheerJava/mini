@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     	UserExample example = new UserExample();
     	example.createCriteria().andAccountEqualTo(account).andIsValidEqualTo(new Byte((byte)1));
         List<User> list = userMapper.selectByExample(example);
-        if(list!=null){
+        if(list!=null && !list.isEmpty()){
         	return list.iterator().next();
         }
         return null;
