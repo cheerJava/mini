@@ -60,6 +60,8 @@
 					</c:forEach>
 				</table>
 				<input class="btn btn-primary" type="submit" value="保存">
+				<input class="btn btn-default" type="submit" value="取消">
+				
 			</form:form>
 		</div>
 	</div>
