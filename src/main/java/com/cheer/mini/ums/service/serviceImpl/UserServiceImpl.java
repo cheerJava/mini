@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getByAccount(String account) {
-
 		UserExample example = new UserExample();
 		example.createCriteria().andAccountEqualTo(account).andIsValidEqualTo(new Byte((byte) 1));
 		List<User> list = userMapper.selectByExample(example);

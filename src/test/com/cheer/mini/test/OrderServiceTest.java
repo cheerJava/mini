@@ -2,6 +2,7 @@ package com.cheer.mini.test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 //import org.apache.log4j.Logger;
@@ -11,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.cheer.mini.ums.dao.UserMapper;
 import com.cheer.mini.ums.model.Order;
 import com.cheer.mini.ums.model.OrderItem;
 import com.cheer.mini.ums.model.User;
+import com.cheer.mini.ums.model.UserExample;
 import com.cheer.mini.ums.service.OrderService;
 import com.cheer.mini.ums.service.UserService;
 
@@ -25,6 +28,8 @@ public class OrderServiceTest {
     @Autowired
     private OrderService orderService;
     
+    @Autowired
+    private UserMapper userMapper;
     //private Logger logger = Logger.getLogger(this.getClass().getName()); 
     
     
@@ -73,6 +78,20 @@ public class OrderServiceTest {
     	orderService.save(orderInfo);
     }
     
-    
+    @Test
+    public void testUserSelectExample(){
+    	UserExample example = new UserExample();
+    	
+    	example.createCriteria().andNameLike("%uter%")
+    		.andDateCreateEqualTo(new Date());
+    	/***
+    	 * 
+    	 * select * form ums_user where name like '%uter%' and create_date = now()
+    	 * 
+    	 */
+    	List<User> list = userMapper.selectByExample(example);
+    	
+    	
+    }
     
 }
