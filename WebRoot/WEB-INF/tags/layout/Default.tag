@@ -14,9 +14,7 @@
 	<div class="container-fluid">
 		<div class="row row-offcanvas row-offcanvas-right">
 			<jsp:include page="../../pages/common/menu.jsp" />
-			<div class="col-md-10" 
-				style="overflow-y:auto;padding-bottom: 40px; padding-top: 30px;" 
-				id="<%=pageId%>">
+			<div class="col-md-10" id="<%=pageId%>">
 				<jsp:doBody />
 			</div>
 		</div>
