@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.cheer.mini.base.Page;
+
 public class UserExample {
     protected String orderByClause;
 
     protected boolean distinct;
+    
+    protected Page page;
 
     protected List<Criteria> oredCriteria;
 
@@ -34,7 +38,15 @@ public class UserExample {
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
+    
+    public Page getPage() {
+		return page;
+	}
 
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
