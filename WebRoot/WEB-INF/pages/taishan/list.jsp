@@ -59,28 +59,12 @@
 		</table>
 		
 		<c:if test="${!empty view.page}">
-			<form:hidden path="page.pageNo" id="pageNo" />
-			<form:hidden path="page.pageSize" />
-			<ul class="pagination">
-				<c:if test="${view.page.pageNo eq 1}">
-				<li class="disabled"><a href="#">&laquo;</a></li>
-				</c:if>
-				<c:if test="${view.page.pageNo ne 1}">
-				<li><a href="#" onclick="page(${view.page.pageNo-1})">&laquo;</a></li>
-				</c:if>
-				<c:forEach begin="1" end="${view.page.totalPage}" varStatus="loop" >
-					<li><a href="#" onclick="page(${loop.index})">${loop.index}</a></li>
-				</c:forEach>
-				<c:if test="${view.page.pageNo eq view.page.totalPage}">
-				<li class="disabled"><a href="#">&raquo;</a></li>
-				</c:if>
-				<c:if test="${view.page.pageNo ne view.page.totalPage}">
-				<li><a href="#" onclick="page(${view.page.pageNo+1})">&laquo;</a></li>
-				</c:if>
-			</ul>
+			<layout:Page page="${view.page}"/>
 		</c:if>
 		<br>
 		<input class="btn btn-warning" type="button" value="Delete" onclick="deleteOrders()">
+		<input class="btn btn-primary" type="button" value="Add" onclick="addOrder()">
+		
 	</form:form>
 	
 	<script>
@@ -113,6 +97,11 @@
 		document.forms[0].action = "${pageContext.request.contextPath}/taishan/list";
 		document.forms[0].submit();
 		
+	}
+	
+	function addOrder(){
+		document.forms[0].action = "${pageContext.request.contextPath}/taishan/add";
+		document.forms[0].submit();
 	}
 	
 	</script>

@@ -59,6 +59,17 @@ public class TaiShanController {
 		model.addAttribute("view", view);
 		return "taishan/info";
 	};
+	
+	
+	@RequestMapping("/add")
+	public String add(@ModelAttribute TaishanView view,Model model){
+		logger.info("Input Param [view] -> " + view);
+		view.setEditInfo(new Order());
+		model.addAttribute("view", view);
+		return "taishan/info";
+	};
+	
+	
 	@RequestMapping("/save")
 	public String save(@ModelAttribute TaishanView view ,Model model ){
 		logger.info("Input Param [view] -> " + view);

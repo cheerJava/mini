@@ -12,6 +12,9 @@
 				method="post" modelAttribute="view">
 				<form:hidden path="condition.status" />
 				<form:hidden path="editInfo.id" />
+				
+				<layout:Page page="${view.page}" isView="false"/>
+				
 				<div class="form-group">
 					<label>标题</label>
 					<form:input path="editInfo.title" cssClass="form-control" />
@@ -60,11 +63,17 @@
 					</c:forEach>
 				</table>
 				<input class="btn btn-primary" type="submit" value="保存">
-				<input class="btn btn-default" type="submit" value="取消">
-				
+				<input class="btn btn-default" type="button" value="取消" onclick="cancel()">
 			</form:form>
 		</div>
 	</div>
+	
+	<script>
+		function cancel(){
+			document.forms[0].action = "${pageContext.request.contextPath}/taishan/list";
+			document.forms[0].submit();
+		}
+	</script>
 
 
 </layout:Default>
