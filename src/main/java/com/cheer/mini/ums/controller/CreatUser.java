@@ -37,7 +37,7 @@ public class CreatUser {
 		ModelAndView mv = new ModelAndView("ums/register");
 		return mv;
 	}
-
+/***
 	@RequestMapping("/register2")
 	public ModelAndView register2(final HttpServletRequest request,
 			final HttpServletResponse response,
@@ -48,5 +48,5 @@ public class CreatUser {
 		ModelAndView mv = new ModelAndView("ums/index");
 		return mv;
 	}
-
+***/
 }

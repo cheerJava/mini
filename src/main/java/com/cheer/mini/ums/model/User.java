@@ -11,10 +11,11 @@ public class User extends BaseEntity {
 		int Admin = 200;
 	
 	}
-	
+
+    //private String id = StringUtil.createUUID();
 	private Boolean selected = Boolean.FALSE;
-//    private String id = StringUtil.createUUID();
-	private String id;
+	
+	private String id=StringUtil.createUUID();
 	
     private String name;
 
@@ -28,27 +29,18 @@ public class User extends BaseEntity {
 
     private short gender;
 
-    private int accountTypeFk;
-    
-    
+    private int accountTypeFk=ORDER_USER.Worker;
 
-    public Boolean getSelected() {
-		return selected;
+  
+    public String getId() {
+		return id;
 	}
 
-	public void setSelected(Boolean selected) {
-		this.selected = selected;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
+	public String getName() {
         return name;
     }
 
@@ -112,13 +104,21 @@ public class User extends BaseEntity {
     	return this.toString();
     }
 
+	public Boolean getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Boolean selected) {
+		this.selected = selected;
+	}
+
 	@Override
 	public String toString() {
 		return "User [selected=" + selected + ", id=" + id + ", name=" + name + ", nickname=" + nickname + ", account="
 				+ account + ", password=" + password + ", salt=" + salt + ", gender=" + gender + ", accountTypeFk="
 				+ accountTypeFk + "]";
 	}
-    
+
 
 
     
