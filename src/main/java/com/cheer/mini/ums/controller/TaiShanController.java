@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.cheer.mini.base.Page;
 import com.cheer.mini.ums.dto.TaishanView;
 import com.cheer.mini.ums.model.Order;
 import com.cheer.mini.ums.service.OrderService;
@@ -33,7 +34,14 @@ public class TaiShanController {
 			view.setCondition(new Order());
 			view.getCondition().setStatus(-1);
 		}
-		List<Order> list = orderService.list(view.getCondition());
+		if(view.getPage() == null){
+			Page page = new Page();
+			page.setPageNo(1);
+			view.setPage(page);
+		}
+		Integer total = orderService.count(view.getCondition());
+		view.getPage().cal(total);
+		List<Order> list = orderService.list(view.getCondition(),view.getPage());
 		view.setList(list);
 		model.addAttribute("view", view);
 		return "taishan/list";
