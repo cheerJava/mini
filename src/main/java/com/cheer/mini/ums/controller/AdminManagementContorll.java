@@ -35,7 +35,7 @@ public class AdminManagementContorll {
 	@RequestMapping("/searchAdminlist")
 	public ResponseEntity<ResultEntity> searchAdminlist() {
 		ResultEntity result = null;
-		List<User> userlist = userService.listUser();
+		List<User> userlist = userService.listUser(null);
 		result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS,
 				"成功", userlist);
 		HttpHeaders headers = new HttpHeaders();

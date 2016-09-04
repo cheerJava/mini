@@ -4,8 +4,16 @@ import com.cheer.mini.base.model.BaseEntity;
 import com.cheer.mini.base.util.StringUtil;
 
 public class User extends BaseEntity {
-
-    //private String id = StringUtil.createUUID();
+	
+	public interface ORDER_USER {
+		int ALL = -1;
+		int Worker = 100;
+		int Admin = 200;
+	
+	}
+	
+	private Boolean selected = Boolean.FALSE;
+//    private String id = StringUtil.createUUID();
 	private String id;
 	
     private String name;
@@ -21,8 +29,18 @@ public class User extends BaseEntity {
     private short gender;
 
     private int accountTypeFk;
+    
+    
 
-    public String getId() {
+    public Boolean getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Boolean selected) {
+		this.selected = selected;
+	}
+
+	public String getId() {
         return id;
     }
 
@@ -96,11 +114,12 @@ public class User extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", nickname=" + nickname
-				+ ", account=" + account + ", password=" + password + ", salt="
-				+ salt + ", gender=" + gender + ", accountTypeFk="
+		return "User [selected=" + selected + ", id=" + id + ", name=" + name + ", nickname=" + nickname + ", account="
+				+ account + ", password=" + password + ", salt=" + salt + ", gender=" + gender + ", accountTypeFk="
 				+ accountTypeFk + "]";
 	}
+    
+
 
     
 }

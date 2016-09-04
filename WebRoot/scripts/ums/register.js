@@ -1,4 +1,4 @@
-function register2()
+function register()
 {
 	
 	var formData = $("#form").serialize2Json();
@@ -6,19 +6,20 @@ function register2()
 	$.ajax({
 	type :"POST",
 	contentType : "application/json;charset=utf-8",
-	url : _path + "/ums/creat/register2",
+	url : _path + "/loujiang/validateregister",
 	dataType : "json",
 	data : JSON.stringify(formData),
 	success : function(data) {
 		if (data.status == "S") {
-			window.location = _path + "/ums/user/login";
+			alert("注册成功");
+			window.location = _path + "/loujiang/register";
 		} else if (data.status == "F") {
-			alert("注册失败"+data.message);
+			alert(data.message);
 		}
 	},
-/*	error : function() {
+	error : function() {
 		alert("error");
-	}*/
+	}
 });
 }
 	

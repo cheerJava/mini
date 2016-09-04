@@ -18,4 +18,8 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    Integer selectCountByExample(UserExample example);
+    
+    List<User> userlist();
 }

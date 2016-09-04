@@ -2,7 +2,7 @@
 <%@ attribute name="pageId" required="true" type="java.lang.String"%>
 
 <!DOCTYPE HTML>
-<html>
+<html style="overflow-y:auto;">
 <head>
 <jsp:include page="../../pages/common/meta.jsp" />
 <jsp:include page="../../pages/common/resources.jsp" />
@@ -14,12 +14,12 @@
 	<div class="container-fluid">
 		<div class="row row-offcanvas row-offcanvas-right">
 			<jsp:include page="../../pages/common/menu.jsp" />
-			<div class="col-xs-12 col-sm-10" id="<%=pageId%>">
+			<div class="col-md-10" id="<%=pageId%>">
 				<jsp:doBody />
 			</div>
-			<jsp:include page="../../pages/common/footer.jsp" />
 		</div>
 		<!--/.container-->
 	</div>
+	<jsp:include page="../../pages/common/footer.jsp" />
 </body>
 </html>

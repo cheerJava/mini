@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+    <!DOCTYPE generatorConfiguration 
+      PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+      "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry
+		location="D:/cheer/source/mini/WebRoot/WEB-INF/lib/mysql-connector-java-5.1.38.jar" />
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/shopcenterdb?useUnicode=true&amp;characterEncoding=utf8" userId="cheer"
+			password="1234">
+		</jdbcConnection>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<javaModelGenerator targetPackage="com.cheer.mini.ums.model" targetProject="d:/test-src/main/java"> 
+			<property name="enableSubPackages" value="true" /> <property name="trimStrings" 
+			value="true" /> 
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="com.cheer.mini.ums.dao"
+			targetProject="d:/test-src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.cheer.mini.ums.dao" targetProject="d:/test-src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<table tableName="ums_order" domainObjectName="Order"
+			enableCountByExample="false" enableSelectByExample="true"
+			enableUpdateByExample="false" enableDeleteByExample="false">
+		</table>
+		<table tableName="ums_order_item" domainObjectName="OrderItem"
+			enableCountByExample="false" enableSelectByExample="true"
+			enableUpdateByExample="false" enableDeleteByExample="false">
+		</table>
+		<table tableName="ums_user" domainObjectName="User"
+			enableCountByExample="false" enableSelectByExample="true"
+			enableUpdateByExample="false" enableDeleteByExample="false">
+		</table>
+		<table tableName="ums_product" domainObjectName="Product"
+			enableCountByExample="false" enableSelectByExample="true"
+			enableUpdateByExample="false" enableDeleteByExample="false">
+		</table>
+	</context>
+</generatorConfiguration>
