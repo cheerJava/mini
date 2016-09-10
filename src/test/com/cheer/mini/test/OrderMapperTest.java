@@ -19,35 +19,35 @@ import com.github.pagehelper.PageHelper;
 @ContextConfiguration({"classpath:config/spring-dao.xml","classpath:config/spring-service.xml"})
 public class OrderMapperTest {
 	
-	private Logger logger = Logger.getLogger(this.getClass().getName()); 
-    
+	private Logger logger = Logger.getLogger(getClass());
+	
 	@Autowired
-    private OrderMapper orderMapper;
+	private OrderMapper orderMapper;
 	
 	
 	@Test
 	public void testCount(){
 		OrderExample example = new OrderExample();
-		example.createCriteria().andTitleLike("Uter%")
-			.andStatusEqualTo((byte)1);
-		Integer rt = orderMapper.selectCountByExample(example);
-		logger.info("rt : " + rt);
+		example.createCriteria().andTitleLike("%Uter%")
+		.andStatusEqualTo((byte)1);
+		Integer rt=orderMapper.selectCountByExample(example);
+		logger.info("rt"+rt);
 		
 	}
 	
 	@Test
-	public void testSelectExample(){
+	public void testSelectExample() {
 		OrderExample example = new OrderExample();
 		Page page = new Page();
 		Integer total = orderMapper.selectCountByExample(example);
 		page.cal(total);
 		page.setPageNo(1);
 		example.setPage(page);
-		
+
 		List<Order> rt = orderMapper.selectByExample(example);
 		
-		logger.info("rt : " + rt);
-		
+		logger.info("rt->" + rt);
+
 	}
 	
 	

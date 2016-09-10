@@ -3,6 +3,9 @@ package com.cheer.mini.loujiang.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -20,126 +23,124 @@ import com.cheer.mini.base.exception.ServiceException;
 import com.cheer.mini.base.model.ResultEntity;
 import com.cheer.mini.base.model.ResultEntityHashMapImpl;
 import com.cheer.mini.loujiang.dto.UserView;
+import com.cheer.mini.ums.dto.request.CustomerUserCreateRequest;
 import com.cheer.mini.ums.model.User;
 import com.cheer.mini.loujiang.service.UserService;
 
 @Controller
 @RequestMapping("/loujiang")
-
 public class UserController {
-	private Logger logger = Logger.getLogger(UserController.class);
+
 	@Autowired
 	private UserService userService;
+	private Logger logger = Logger.getLogger(UserController.class);
+	private static List<User> userList = new ArrayList<User>();
 
-	@RequestMapping("/userShow")
-	public String list(@ModelAttribute UserView view, Model model) {
-		logger.info("Input Param [view]->" + view);
-		System.out.println("进入了》》》》》userShow方法");
+	@RequestMapping("/list")
+	public String list(@ModelAttribute("view") UserView view, Model model) {
+		logger.info("Input Param [view] -> " + view);
 		if (view == null) {
 			view = new UserView();
 		}
-		if (view.getPage() == null) {
-			Page page = new Page();
+		if(view.getPage()==null){
+			Page page=new Page();
 			page.setPageNo(1);
 			view.setPage(page);
 		}
 		Integer total = userService.count(view.getCondition());
 		view.getPage().cal(total);
-		List<User> userlist = userService.listUser(view.getPage());
-		view.setList(userlist);
+		List<User> list = userService.list(view.getCondition());
+		view.setList(list);
 		model.addAttribute("view", view);
-		System.out.println("userShow方法》》》》》执行完毕");
-		return "loujiang/userList";
-	}
+		return "/loujiang/list";
 
-	@RequestMapping("/listByFk")
-	public String listByVaild(@ModelAttribute UserView view, Model model) {
+	}
+	
+
+	@RequestMapping("/search")
+	public String search(@ModelAttribute UserView view, Model model) {
 		logger.info("Input Param [view] -> " + view);
-		System.out.println("进入了》》》》》listByFk(用户组查询)方法");
-		if (view.getCondition() == null) {
-			view.setCondition(new User());
-			view.getCondition().setAccountTypeFk(200);
+		if (view == null) {
+			view = new UserView();
 		}
 		List<User> list = userService.list(view.getCondition());
 		view.setList(list);
 		model.addAttribute("view", view);
-		System.out.println("listByFk方法》》》》》执行完毕");
-		return "loujiang/userList";
-	};
+		return "/loujiang/search";
 
-	@RequestMapping("/listByAccount")
-	public String listByAccount(@ModelAttribute UserView view, Model model) throws ServiceException {
-		logger.info("Input Param [view] -> " + view);
-		System.out.println("进入了》》》》》listByAccount(通过账号模糊查询)方法");
-		List<User> list = userService.listByAccount(view.getCondition());
-		if (list.isEmpty())
-			throw new ServiceException("您查找的用户不存在");
-		view.setList(list);
-		model.addAttribute("view", view);
-		System.out.println("listByAccount方法》》》》》执行完毕");
-		return "loujiang/userList";
-	};
-
-	@RequestMapping("/userinfo")
-	public String userinfo(@ModelAttribute UserView view, Model model) {
-		logger.info("Input Param [view] -> " + view);
-		System.out.println("进入了》》》》》userinfo方法");
-		if (view.getEditInfo() != null && view.getEditInfo().getId() != null && view.getEditInfo().getId() != "") {
-			User userInfo = userService.selectByPrimaryKey(view.getEditInfo().getId());
-			view.setEditInfo(userInfo);
-		}
-		model.addAttribute("view", view);
-		System.out.println("userinfo方法》》》》》执行完毕");
-		return "loujiang/userinfo";
 	}
 
-	@RequestMapping("/update")
-	public String update(@ModelAttribute UserView view, Model model) {
-		logger.info("Input Param [view] -> " + view);
-		System.out.println("进入了》》》》》update（用户信息更新）方法");
-		if (view.getEditInfo() != null && view.getEditInfo().getId() != null && view.getEditInfo().getId() != "") {
-			System.out.println(view.getEditInfo().getPassword());
-			userService.updateByPrimaryKeySelective(view.getEditInfo());
-		}
-		System.out.println("update方法》》》》》执行完毕");
-		return list(view, model);
-	}
+	
+	  @RequestMapping("/addjsp") public String addjsp(@ModelAttribute UserView
+	  view,Model model){
+	  
+	  return "loujiang/register"; 
+	  }
+	  
+	 
+	 
+	  @RequestMapping("/add") 
+	  public ResponseEntity<ResultEntity> add(final HttpServletRequest request, final HttpServletResponse
+	 response,@RequestBody CustomerUserCreateRequest
+	  customerUserCreateRequest) { 
+	System.out.println("fangfa"); 
+	ResultEntity result = null; 
+	System.out.println(customerUserCreateRequest.getGender());
+	  int user = userService.createUser(customerUserCreateRequest); 
+	  result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS, "成功", user);
+	  HttpHeaders headers = new HttpHeaders(); 
+	  return new ResponseEntity<ResultEntity>(result, headers, HttpStatus.CREATED); 
+	  }
+	  
+/*	  @RequestMapping("/register2")
+	  public ResponseEntity<ResultEntity> register2(final HttpServletRequest request, final HttpServletResponse response,UriComponentsBuilder builder,@RequestBody CustomerUserCreateRequest customerUserCreateRequest) {
+	  System.out.println("fangfa");
+	  ResultEntity result = null;
+	  System.out.println(customerUserCreateRequest.getGender());
+	  int user = userService.createUser(customerUserCreateRequest);
+	  result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS, "成功", user);
+      HttpHeaders headers = new HttpHeaders();
+      System.out.println(result);
+      headers.setLocation(builder.path("/loujiang/list")
+				.buildAndExpand().toUri());
+      return new ResponseEntity<ResultEntity>(result, headers, HttpStatus.CREATED); 
+    }*/
+	  
 
 	@RequestMapping("/delete")
 	public String delete(@ModelAttribute UserView view, Model model) {
 		logger.info("Input Param [view] -> " + view);
-		System.out.println("进入了》》》》》delete方法");
 		if (view.getList() != null && !view.getList().isEmpty()) {
 			for (User selectUser : view.getList()) {
 				if (selectUser.getSelected()) {
 					String userId = selectUser.getId();
 					userService.delete(userId);
 				}
-
 			}
 		}
-		System.out.println("delete方法》》》》》执行完毕");
+
 		return list(view, model);
 	}
 
-	@RequestMapping("/register")
-	public String register(@ModelAttribute UserView view, Model model) {
-		model.addAttribute("view", view);
-		return "loujiang/register";
+	@RequestMapping("/save")
+	public String save(@ModelAttribute UserView view, Model model) {
+		logger.info("Input Param [view] -> " + view);
+		if (view.getEditInfo() != null && view.getEditInfo().getId() != null && view.getEditInfo().getId() != "") {
+			userService.updateByPrimaryKeySelective(view.getEditInfo());
+		}
+
+		return list(view, model);
 	}
 
-	@RequestMapping(value = "/validateregister")
-	public ResponseEntity<ResultEntity> validateregister(@RequestBody User userParam, Model model,
-			UriComponentsBuilder builder) throws ServiceException, Exception {
-		logger.info("Input Param [view] -> " + userParam);
-		System.out.println("进入了》》》》》validateregister（注册）方法");
-		ResultEntity result = null;
-		User user = userService.insertcreatUser(userParam);
-		result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS, "注册成功", user);
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path("/loujiang/validateregister").buildAndExpand().toUri());
-		System.out.println("validateregister方法》》》》》执行完毕");
-		return new ResponseEntity<ResultEntity>(result, headers, HttpStatus.CREATED);
-	}
+	@RequestMapping("/info")
+	public String info(@ModelAttribute UserView view, Model model) {
+		logger.info("Input Param [view] -> " + view);
+		if (view.getEditInfo() != null && view.getEditInfo().getId() != null && view.getEditInfo().getId() != "") {
+			User userInfo = userService.selectByPrimaryKey(view.getEditInfo().getId());
+			view.setEditInfo(userInfo);
+		}
+		model.addAttribute("view", view);
+		return "loujiang/info";
+	};
 
 }
