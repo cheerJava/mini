@@ -8,16 +8,20 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.cheer.mini.base.Constants;
+import com.cheer.mini.base.Page;
 import com.cheer.mini.base.exception.ServiceException;
 import com.cheer.mini.base.util.StringUtil;
 import com.cheer.mini.ums.dao.UserMapper;
 import com.cheer.mini.ums.dto.request.CustomerUserCreateRequest;
 import com.cheer.mini.ums.dto.request.registerRequest;
+
 import com.cheer.mini.ums.model.User;
 import com.cheer.mini.ums.model.UserExample;
+import com.cheer.mini.ums.model.UserExample.Criteria;
 import com.cheer.mini.ums.service.UserService;
 
 @Service
@@ -57,7 +61,7 @@ public class UserServiceImpl implements UserService {
     	UserExample example = new UserExample();
     	example.createCriteria().andAccountEqualTo(account).andIsValidEqualTo(new Byte((byte)1));
         List<User> list = userMapper.selectByExample(example);
-        if(list!=null){
+        if(list!=null && !list.isEmpty()){
         	return list.iterator().next();
         }
         return null;
@@ -79,7 +83,7 @@ public class UserServiceImpl implements UserService {
         if(StringUtil.isEmpty(userParam.getName()))throw new ServiceException("姓名不能为空");
         if(StringUtil.isEmpty(userParam.getNickname()))throw new ServiceException("昵称不能为空");
         if(StringUtil.isEmpty(userParam.getPassword()))throw new ServiceException("密码不能为空");
-        if((userParam.getGender()!=Constants.Gender.GENDER_MALE)||(userParam.getGender()!=Constants.Gender.GENDER_FEMALE))throw new ServiceException("请选择性别");
+        if(!(Constants.Gender.GENDER_MALE==userParam.getGender()||Constants.Gender.GENDER_FEMALE==userParam.getGender()))throw new ServiceException("请选择性别");
         User user = this.getByAccount(userParam.getAccount());
         if(user!=null)throw new ServiceException("该用户名已存在");
         user = new User();      
@@ -96,26 +100,24 @@ public class UserServiceImpl implements UserService {
         
     }
 
+
+
 	@Override
-	public List<User> listUser() {
+	public List<User> listUser(User condition) {
 		List<User> list=userMapper.selectByExample(null);
 		return list;
 	}
-//	@Override
-//	public  int insertUser(User user){
-//		int u= userDao.insertUser(user);
-//		return u;
-//	}
+
 
 	 @Override
 	    public User insertcreatUser(User userParam) throws ServiceException {
-	        
+		 System.out.println("添加1");
 	        if(StringUtil.isEmpty(userParam.getAccount()))throw new ServiceException("用户名不能为空");
 	        if(StringUtil.isEmpty(userParam.getName()))throw new ServiceException("姓名不能为空");
 	        if(StringUtil.isEmpty(userParam.getNickname()))throw new ServiceException("昵称不能为空");
 	        if(StringUtil.isEmpty(userParam.getPassword()))throw new ServiceException("密码不能为空");
 	        short s=userParam.getGender();
-	        if((s!=Constants.Gender.GENDER_MALE)||(s!=Constants.Gender.GENDER_FEMALE))throw new ServiceException("请选择性别");
+	        if(!(Constants.Gender.GENDER_MALE==userParam.getGender()||Constants.Gender.GENDER_FEMALE==userParam.getGender()))throw new ServiceException("请选择性别");
 	        User user = this.getByAccount(userParam.getAccount());
 	        if(user!=null)throw new ServiceException("该用户名已存在");
 	        user = new User();      
@@ -127,7 +129,9 @@ public class UserServiceImpl implements UserService {
 	        user.setNickname(userParam.getNickname());
 	        user.setPassword(userParam.getPassword());
 	        this.encryptPassword(user);
+	        System.out.println("添加2");
 	        int rt =userMapper.insert(user);
+	        System.out.println("添加");
 	        if(rt == 1){
 	        	return user;
 	        }else{
@@ -141,6 +145,62 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	@Override
+	@Transactional
+	public void delete(String orderId) {
+		
+		userMapper.deleteByPrimaryKey(orderId);
+	}
+
+	@Override
+	public void updateByPrimaryKeySelective(User record) {
+		userMapper.updateByPrimaryKeySelective(record);
+		
+	}
+
+	@Override
+	public User selectByPrimaryKey(String id) {
+		
+		return userMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<User> searchUser(User condition) {
+			UserExample example = new UserExample();
+			Criteria criteria = example.createCriteria();
+			if(condition!=null && StringUtil.notEmpty(condition.getName())){
+				criteria.andNameLike(condition.getName() + "%");
+			}
+			if(condition!=null && StringUtil.notEmpty(condition.getNickname())){
+				criteria.andNameLike(condition.getNickname() + "%");
+			}
+			return userMapper.selectByExample(example);
+		
+		
+	}
+	
+	@Override
+	public Integer count(User condition) {
+		UserExample example = new UserExample();
+		Criteria criteria = example.createCriteria();
+		if(condition!=null && StringUtil.notEmpty(condition.getName())){
+			criteria.andNameLike(condition.getName() + "%");
+		}
+		if(condition!=null && StringUtil.notEmpty(condition.getNickname())){
+			criteria.andNameLike(condition.getNickname() + "%");
+		}
+		return userMapper.selectCountByExample(example);
+	}
+	
+	@Override
+	public List<User> list(User condition,Page page) {
+		UserExample example = new UserExample();
+		Criteria criteria = example.createCriteria();
+		if(page!=null){
+			example.setPage(page);
+		}	
+		return userMapper.selectByExample(example);
+}
 	
 	
 }

@@ -15,6 +15,12 @@ public class CustomerUserCreateRequest {
     private short gender;
 
     private static final int accountTypeFk = Constants.AccountType.ACCOUNT_TYPE_CUSTOMER;
+    
+
+    private CustomerUserCreateRequest() {
+   
+       
+    }
 
     private CustomerUserCreateRequest(String name, String nickname, String account, String password, short gender) {
         super();
@@ -68,8 +74,5 @@ public class CustomerUserCreateRequest {
     public static int getAccounttypefk() {
         return accountTypeFk;
     }
-    
-    public CustomerUserCreateRequest() {
-		// TODO Auto-generated constructor stub
-	}
+
 }

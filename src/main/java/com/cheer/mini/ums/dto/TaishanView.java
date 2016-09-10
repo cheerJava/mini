@@ -2,6 +2,7 @@ package com.cheer.mini.ums.dto;
 
 import java.util.List;
 
+import com.cheer.mini.base.Page;
 import com.cheer.mini.ums.model.Order;
 
 public class TaishanView {
@@ -9,6 +10,8 @@ public class TaishanView {
 	private Order condition;
 	
 	private List<Order> list;
+	
+	private  Page page;
 	
 	private Order editInfo;
 
@@ -36,11 +39,20 @@ public class TaishanView {
 		this.editInfo = editInfo;
 	}
 
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
+
 	@Override
 	public String toString() {
-		return "TaishanView [condition=" + condition + ", list=" + list
-				+ ", editInfo=" + editInfo + "]";
+		return "TaishanView [condition=" + condition + ", list=" + list + ", page=" + page + ", editInfo=" + editInfo
+				+ "]";
 	}
+
 	
 	
 	

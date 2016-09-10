@@ -33,6 +33,7 @@ public class LoginController {
 	@RequestMapping("/login")
 	public ModelAndView login(final HttpServletRequest request,
 			final HttpServletResponse response) {
+		
 		ModelAndView mv = new ModelAndView("ums/login");
 		return mv;
 	}

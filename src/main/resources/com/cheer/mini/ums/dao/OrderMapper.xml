@@ -59,7 +59,28 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+     <if test="page != null" >
+     limit ${(page.pageNo-1)*page.pageSize},${page.pageSize}
+    </if>
   </select>
+  
+  <select id="selectCountByExample" resultType="java.lang.Integer" parameterType="com.cheer.mini.ums.model.OrderExample" >
+    select count(1) from(select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ums_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    )CNT
+  </select>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

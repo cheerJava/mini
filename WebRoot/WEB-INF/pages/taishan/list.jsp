@@ -54,8 +54,36 @@
 			<tr><td colspan="5">No Record(s) Watch</td></tr>
 			</c:if>
 		</table>
+		
+		<c:if test ="${empty view.page}">
+		<from:hidden path="page.pageNo" id="pageNo"/>
+		<from:hidden path="page.pageSize" />
+		<ul class="pagination">
+			<c:if test="${view.page.pageNo eq 1 }">
+			<li class = "disable"><a href ="#">&raquo;</a></li>
+			</c:if>
+			
+			<c:if test="${view.page.pageNo ne 1 }">
+			<li ><a href ="#" onclick="page(${view.page.pageNo-1})">&raquo;</a></li>
+			</c:if>
+			
+			<c:forEach begin="1" end="${view.page.totalPage }" varStatus ="loop">
+				<li><a href="#" onclick="page(${loop.index})">${loop.index}</a></li>
+			</c:forEach>
+				
+			<c:if test="${view.page.pageNo eq view.page.totalPage }">
+			<li class = "disable"><a href ="#">&raquo;</a></li>
+			</c:if>	
+			
+			<c:if test="${view.page.pageNo ne view.page.totalPage }">
+		   <li><a href="#" onclick="page(${view.page.pageNo+1})">&raquo;</a></li>
+		    </c:if>
+		
+		</ul>
+		</c:if>
+		
 		<br />
-		<input type="button" value="Delete" onclick="deleteOrders()">
+		<input class="button-primary" type="button" value="Delete" onclick="deleteOrders()">
 	</form:form>
 	
 	<script>
@@ -70,6 +98,12 @@
 		document.forms[0].submit();
 	}
 	
+	
+	function page(pageNo) {
+		$("#pageNo").val(pageNo);
+		document.forms[0].action = "${pageContext.request.contextPath}/taishan/list";
+		document.forms[0].submit();
+	}
 	
 	</script>
 	

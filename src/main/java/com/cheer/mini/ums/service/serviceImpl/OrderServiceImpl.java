@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cheer.mini.base.Page;
 import com.cheer.mini.base.util.StringUtil;
 import com.cheer.mini.ums.dao.OrderItemMapper;
 import com.cheer.mini.ums.dao.OrderMapper;
@@ -72,6 +73,35 @@ public class OrderServiceImpl implements OrderService {
 		List<OrderItem> items = orderItemMapper.selectByExample(oie);
 		rt.setItems(items);
 		return rt;
+	}
+	
+	@Override
+	public Integer count(Order condition) {
+		OrderExample example = new OrderExample();
+		Criteria criteria = example.createCriteria();
+		if(condition!=null && StringUtil.notEmpty(condition.getTitle())){
+			criteria.andTitleLike(condition.getTitle() + "%");
+		}
+		if(condition!=null && condition.getStatus()!=-1){
+			criteria.andStatusEqualTo(new Byte(((byte)condition.getStatus())));
+		}
+		return orderMapper.selectCountByExample(example);
+	}
+	
+	@Override
+	public List<Order> list(Order condition,Page page) {
+		OrderExample example = new OrderExample();
+		Criteria criteria = example.createCriteria();
+		if(condition!=null && StringUtil.notEmpty(condition.getTitle())){
+			criteria.andTitleLike(condition.getTitle() + "%");
+		}
+		if(condition!=null && condition.getStatus()!=-1){
+			criteria.andStatusEqualTo(new Byte(((byte)condition.getStatus())));
+		}
+		if(page!=null){
+			example.setPage(page);
+		}
+		return orderMapper.selectByExample(example);
 	}
 
 	@Override

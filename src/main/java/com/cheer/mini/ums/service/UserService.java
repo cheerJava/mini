@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.cheer.mini.base.Page;
 import com.cheer.mini.base.exception.ServiceException;
 import com.cheer.mini.ums.dto.request.CustomerUserCreateRequest;
 import com.cheer.mini.ums.dto.request.registerRequest;
 import com.cheer.mini.ums.model.User;
+import com.cheer.mini.ums.model.UserExample;
 
 /**
  * 站在使用者的角度去设计接口
@@ -25,10 +27,23 @@ public interface UserService {
 	public int createUser(CustomerUserCreateRequest userParam)
 			throws ServiceException;
 
-	public List<User> listUser();
+	public List<User> listUser(User condition);
 
 	public User insertUser(User user);
 
 	public User insertcreatUser(User user) throws ServiceException;
+	
+	public void delete(String id);
+	
+	public User selectByPrimaryKey(String id);
+	
+	public void updateByPrimaryKeySelective(User record);
+	
+	public List<User> searchUser(User condition);
+
+	Integer count(User condition);
+
+	List<User> list(User condition, Page page);
+	
 
 }
