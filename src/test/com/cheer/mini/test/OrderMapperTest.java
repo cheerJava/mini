@@ -13,6 +13,7 @@ import com.cheer.mini.base.Page;
 import com.cheer.mini.ums.dao.OrderMapper;
 import com.cheer.mini.ums.model.Order;
 import com.cheer.mini.ums.model.OrderExample;
+import com.github.pagehelper.PageHelper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:config/spring-dao.xml","classpath:config/spring-service.xml"})
@@ -48,5 +49,26 @@ public class OrderMapperTest {
 		logger.info("rt : " + rt);
 		
 	}
+	
+	
+	@Test
+	public void testPagePluginTool(){
+		
+		PageHelper.startPage(2, 5);
+		//PageHelper.orderBy("title desc");
+		OrderExample example = new OrderExample();
+		List<Order> rt = orderMapper.selectByExample(example);
+		
+		if(rt!=null && !rt.isEmpty()){
+			for(int i=0;i<rt.size();i++){
+				Order item = rt.get(i);
+				System.out.println(item);
+			}
+		}
+		
+		System.out.println(rt);
+		
+	}
+	
 	
 }
