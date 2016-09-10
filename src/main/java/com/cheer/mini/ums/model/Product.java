@@ -4,9 +4,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.cheer.mini.base.model.BaseEntity;
+import com.cheer.mini.base.util.StringUtil;
 
 public class Product extends BaseEntity {
-	private String id;
+
+	private Boolean selected = Boolean.FALSE;
+
+	private String id = StringUtil.createUUID();
 
 	private String name;
 
@@ -15,6 +19,20 @@ public class Product extends BaseEntity {
 	private BigDecimal price;
 
 	private String imageFullPath;
+
+	@Override
+	public String toString() {
+		return "Product [selected=" + selected + ", id=" + id + ", name=" + name + ", description=" + description
+				+ ", price=" + price + ", imageFullPath=" + imageFullPath + "]";
+	}
+
+	public Boolean getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Boolean selected) {
+		this.selected = selected;
+	}
 
 	public String getId() {
 		return id;
@@ -53,7 +71,6 @@ public class Product extends BaseEntity {
 	}
 
 	public void setImageFullPath(String imageFullPath) {
-		this.imageFullPath = imageFullPath == null ? null : imageFullPath
-				.trim();
+		this.imageFullPath = imageFullPath == null ? null : imageFullPath.trim();
 	}
 }
