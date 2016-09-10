@@ -13,15 +13,7 @@ public class UserExample {
     
     protected Page page;
 
-    public Page getPage() {
-		return page;
-	}
-
-	public void setPage(Page page) {
-		this.page = page;
-	}
-
-	protected List<Criteria> oredCriteria;
+    protected List<Criteria> oredCriteria;
 
     public UserExample() {
         oredCriteria = new ArrayList<Criteria>();
@@ -46,7 +38,15 @@ public class UserExample {
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
+    
+    public Page getPage() {
+		return page;
+	}
 
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }

@@ -34,14 +34,14 @@ public class TaiShanController {
 			view.setCondition(new Order());
 			view.getCondition().setStatus(-1);
 		}
-		if(view.getPage()==null){
-			Page page=new Page();
+		if(view.getPage() == null){
+			Page page = new Page();
 			page.setPageNo(1);
 			view.setPage(page);
 		}
 		Integer total = orderService.count(view.getCondition());
 		view.getPage().cal(total);
-		List<Order> list = orderService.list(view.getCondition());
+		List<Order> list = orderService.list(view.getCondition(),view.getPage());
 		view.setList(list);
 		model.addAttribute("view", view);
 		return "taishan/list";
@@ -59,6 +59,17 @@ public class TaiShanController {
 		model.addAttribute("view", view);
 		return "taishan/info";
 	};
+	
+	
+	@RequestMapping("/add")
+	public String add(@ModelAttribute TaishanView view,Model model){
+		logger.info("Input Param [view] -> " + view);
+		view.setEditInfo(new Order());
+		model.addAttribute("view", view);
+		return "taishan/info";
+	};
+	
+	
 	@RequestMapping("/save")
 	public String save(@ModelAttribute TaishanView view ,Model model ){
 		logger.info("Input Param [view] -> " + view);

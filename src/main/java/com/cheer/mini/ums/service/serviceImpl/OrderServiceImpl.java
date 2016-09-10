@@ -53,42 +53,6 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> list(Order condition) {
-		OrderExample example = new OrderExample();
-		Criteria criteria = example.createCriteria();
-		if(condition!=null && StringUtil.notEmpty(condition.getTitle())){
-			criteria.andTitleLike(condition.getTitle() + "%");
-		}
-		if(condition!=null && condition.getStatus()!=-1){
-			criteria.andStatusEqualTo(new Byte(((byte)condition.getStatus())));
-		}
-		return orderMapper.selectByExample(example);
-	}
-
-	@Override
-	public Order info(String orderId) {
-		Order rt = orderMapper.selectByPrimaryKey(orderId);
-		OrderItemExample oie = new OrderItemExample();
-		oie.createCriteria().andOrderIdEqualTo(orderId);
-		List<OrderItem> items = orderItemMapper.selectByExample(oie);
-		rt.setItems(items);
-		return rt;
-	}
-	
-	@Override
-	public Integer count(Order condition) {
-		OrderExample example = new OrderExample();
-		Criteria criteria = example.createCriteria();
-		if(condition!=null && StringUtil.notEmpty(condition.getTitle())){
-			criteria.andTitleLike(condition.getTitle() + "%");
-		}
-		if(condition!=null && condition.getStatus()!=-1){
-			criteria.andStatusEqualTo(new Byte(((byte)condition.getStatus())));
-		}
-		return orderMapper.selectCountByExample(example);
-	}
-	
-	@Override
 	public List<Order> list(Order condition,Page page) {
 		OrderExample example = new OrderExample();
 		Criteria criteria = example.createCriteria();
@@ -102,6 +66,16 @@ public class OrderServiceImpl implements OrderService {
 			example.setPage(page);
 		}
 		return orderMapper.selectByExample(example);
+	}
+
+	@Override
+	public Order info(String orderId) {
+		Order rt = orderMapper.selectByPrimaryKey(orderId);
+		OrderItemExample oie = new OrderItemExample();
+		oie.createCriteria().andOrderIdEqualTo(orderId);
+		List<OrderItem> items = orderItemMapper.selectByExample(oie);
+		rt.setItems(items);
+		return rt;
 	}
 
 	@Override
@@ -132,6 +106,19 @@ public class OrderServiceImpl implements OrderService {
 				
 			}
 		}
+	}
+
+	@Override
+	public Integer count(Order condition) {
+		OrderExample example = new OrderExample();
+		Criteria criteria = example.createCriteria();
+		if(condition!=null && StringUtil.notEmpty(condition.getTitle())){
+			criteria.andTitleLike(condition.getTitle() + "%");
+		}
+		if(condition!=null && condition.getStatus()!=-1){
+			criteria.andStatusEqualTo(new Byte(((byte)condition.getStatus())));
+		}
+		return orderMapper.selectCountByExample(example);
 	}
 	
 	/***

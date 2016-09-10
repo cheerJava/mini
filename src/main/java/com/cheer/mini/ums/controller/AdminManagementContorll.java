@@ -32,14 +32,14 @@ public class AdminManagementContorll {
 		return mv;
 	}
 
-//	@RequestMapping("/searchAdminlist")
-//	public ResponseEntity<ResultEntity> searchAdminlist() {
-//		ResultEntity result = null;
-//		List<User> userlist = userService.listUser();
-//		result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS,
-//				"成功", userlist);
-//		HttpHeaders headers = new HttpHeaders();
-//		return new ResponseEntity<ResultEntity>(result, headers,
-//				HttpStatus.CREATED);
-//	}
+	@RequestMapping("/searchAdminlist")
+	public ResponseEntity<ResultEntity> searchAdminlist() {
+		ResultEntity result = null;
+		List<User> userlist = userService.listUser(null);
+		result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS,
+				"成功", userlist);
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<ResultEntity>(result, headers,
+				HttpStatus.CREATED);
+	}
 }

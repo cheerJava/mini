@@ -2,6 +2,7 @@ package com.cheer.mini.ums.service.serviceImpl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -27,37 +28,41 @@ import com.cheer.mini.ums.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
+	private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
 
-    private String algorithmName = "md5";
+	private String algorithmName = "md5";
 
-    private int hashIterations = 2;
+	private int hashIterations = 2;
 
-    @Autowired
-    private UserMapper userMapper;
+	private Logger logger = Logger.getLogger(getClass());
 
-    public void encryptPassword(User user) {
-        user.setSalt(randomNumberGenerator.nextBytes().toHex());
-        String newPassword = new SimpleHash(algorithmName, user.getPassword(), ByteSource.Util.bytes(user.getCredentialsSalt()), hashIterations).toHex();
-        user.setPassword(newPassword);
-    }
+	@Autowired
+	private UserMapper userMapper;
 
-    /**
-     * 验证登录密码
-     * 
-     * @param user
-     * @param password
-     * @return
-     */
-    public boolean validatePassword(User user, String password) {
-        String newPassword = new SimpleHash(algorithmName, password, ByteSource.Util.bytes(user.getCredentialsSalt()), hashIterations).toHex();
-        if (newPassword.equals(user.getPassword())) return true;
-        return false;
-    }
+	public void encryptPassword(User user) {
+		user.setSalt(randomNumberGenerator.nextBytes().toHex());
+		String newPassword = new SimpleHash(algorithmName, user.getPassword(),
+				ByteSource.Util.bytes(user.getCredentialsSalt()), hashIterations).toHex();
+		user.setPassword(newPassword);
+	}
 
-    @Override
+	/**
+	 * 验证登录密码
+	 * 
+	 * @param user
+	 * @param password
+	 * @return
+	 */
+	public boolean validatePassword(User user, String password) {
+		String newPassword = new SimpleHash(algorithmName, password, ByteSource.Util.bytes(user.getCredentialsSalt()),
+				hashIterations).toHex();
+		if (newPassword.equals(user.getPassword()))
+			return true;
+		return false;
+	}
+
+	@Override
     public User getByAccount(String account) {
-    	
     	UserExample example = new UserExample();
     	example.createCriteria().andAccountEqualTo(account).andIsValidEqualTo(new Byte((byte)1));
         List<User> list = userMapper.selectByExample(example);
@@ -66,7 +71,7 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
-
+	
     @Override
     public User adminLogin(String account, String password) throws ServiceException {
         User user = this.getByAccount(account);
@@ -147,7 +152,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public void delete(String orderId) {
+	public void deleteByPrimaryKey(String orderId) {
 		
 		userMapper.deleteByPrimaryKey(orderId);
 	}
@@ -200,7 +205,13 @@ public class UserServiceImpl implements UserService {
 			example.setPage(page);
 		}	
 		return userMapper.selectByExample(example);
-}
+	}
+
+	@Override
+	public User info(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

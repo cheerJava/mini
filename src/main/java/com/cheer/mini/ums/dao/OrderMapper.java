@@ -12,12 +12,12 @@ public interface OrderMapper {
     int insertSelective(Order record);
 
     List<Order> selectByExample(OrderExample example);
+    
+    Integer selectCountByExample(OrderExample example);
 
     Order selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
-
-	Integer selectCountByExample(OrderExample example);
 }

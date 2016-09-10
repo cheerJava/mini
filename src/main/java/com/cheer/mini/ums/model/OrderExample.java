@@ -15,17 +15,8 @@ public class OrderExample {
     protected Page page;
 
     protected List<Criteria> oredCriteria;
-    
 
-    public Page getPage() {
-		return page;
-	}
-
-	public void setPage(Page page) {
-		this.page = page;
-	}
-
-	public OrderExample() {
+    public OrderExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -39,6 +30,14 @@ public class OrderExample {
 
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
+    }
+    
+    public Page getPage(){
+    	return page;
+    }
+    
+    public void setPage(Page page){
+    	this.page = page;
     }
 
     public boolean isDistinct() {

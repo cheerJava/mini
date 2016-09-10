@@ -46,7 +46,8 @@
     id, amount, title, remark, status, date_create, date_update, creator_fk, updater_fk, 
     is_valid
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cheer.mini.ums.model.OrderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" 
+  	parameterType="com.cheer.mini.ums.model.OrderExample" >
     select
     <if test="distinct" >
       distinct
@@ -59,12 +60,14 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-     <if test="page != null" >
-     limit ${(page.pageNo-1)*page.pageSize},${page.pageSize}
+    <if test="page != null" >
+      limit ${(page.pageNo-1)*page.pageSize}, ${page.pageSize}
     </if>
   </select>
   
-  <select id="selectCountByExample" resultType="java.lang.Integer" parameterType="com.cheer.mini.ums.model.OrderExample" >
+  
+  <select id="selectCountByExample" resultType="java.lang.Integer" 
+  		parameterType="com.cheer.mini.ums.model.OrderExample" >
     select count(1) from(select
     <if test="distinct" >
       distinct
@@ -77,8 +80,11 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-    )CNT
+    ) CNT
   </select>
+  
+  
+  
   
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

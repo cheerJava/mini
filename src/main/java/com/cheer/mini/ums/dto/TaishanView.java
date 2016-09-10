@@ -11,8 +11,8 @@ public class TaishanView {
 	
 	private List<Order> list;
 	
-	private  Page page;
-	
+	private Page page;
+
 	private Order editInfo;
 
 	public Order getCondition() {
@@ -30,6 +30,14 @@ public class TaishanView {
 	public void setList(List<Order> list) {
 		this.list = list;
 	}
+	
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
 
 	public Order getEditInfo() {
 		return editInfo;
@@ -39,20 +47,11 @@ public class TaishanView {
 		this.editInfo = editInfo;
 	}
 
-	public Page getPage() {
-		return page;
-	}
-
-	public void setPage(Page page) {
-		this.page = page;
-	}
-
 	@Override
 	public String toString() {
-		return "TaishanView [condition=" + condition + ", list=" + list + ", page=" + page + ", editInfo=" + editInfo
-				+ "]";
+		return "TaishanView [condition=" + condition + ", list=" + list
+				+ ", page=" + page + ", editInfo=" + editInfo + "]";
 	}
-
 	
 	
 	

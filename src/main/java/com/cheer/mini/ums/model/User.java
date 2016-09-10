@@ -12,8 +12,10 @@ public class User extends BaseEntity {
 	
 	}
 
-   private String id = StringUtil.createUUID();
-	//private String id;
+    //private String id = StringUtil.createUUID();
+	private Boolean selected = Boolean.FALSE;
+	
+	private String id=StringUtil.createUUID();
 	
     private String name;
 
@@ -27,29 +29,18 @@ public class User extends BaseEntity {
 
     private short gender;
 
-    private int accountTypeFk;
-    
-    
-    private Boolean selected = Boolean.FALSE;
-    
+    private int accountTypeFk=ORDER_USER.Worker;
 
-    public Boolean getSelected() {
-		return selected;
+  
+    public String getId() {
+		return id;
 	}
 
-	public void setSelected(Boolean selected) {
-		this.selected = selected;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
+	public String getName() {
         return name;
     }
 
@@ -114,6 +105,14 @@ public class User extends BaseEntity {
     }
     
     
+
+	public Boolean getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Boolean selected) {
+		this.selected = selected;
+	}
 
 	@Override
 	public String toString() {
