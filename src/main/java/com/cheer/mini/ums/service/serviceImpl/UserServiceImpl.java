@@ -19,7 +19,6 @@ import com.cheer.mini.base.util.StringUtil;
 import com.cheer.mini.ums.dao.UserMapper;
 import com.cheer.mini.ums.dto.request.CustomerUserCreateRequest;
 import com.cheer.mini.ums.dto.request.registerRequest;
-
 import com.cheer.mini.ums.model.User;
 import com.cheer.mini.ums.model.UserExample;
 import com.cheer.mini.ums.model.UserExample.Criteria;
@@ -103,18 +102,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.insert(user);
        
         
-    }
-
-
-
-	@Override
-	public List<User> listUser(User condition) {
-		List<User> list=userMapper.selectByExample(null);
-		return list;
-	}
-
-
-	 @Override
+    }	 @Override
 	    public User insertcreatUser(User userParam) throws ServiceException {
 		 System.out.println("添加1");
 	        if(StringUtil.isEmpty(userParam.getAccount()))throw new ServiceException("用户名不能为空");
@@ -142,31 +130,9 @@ public class UserServiceImpl implements UserService {
 	        }else{
 	        	return null;
 	        }
-	    }
-
-	@Override
-	public User insertUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	@Transactional
-	public void deleteByPrimaryKey(String orderId) {
+	
 		
-		userMapper.deleteByPrimaryKey(orderId);
-	}
-
-	@Override
-	public void updateByPrimaryKeySelective(User record) {
-		userMapper.updateByPrimaryKeySelective(record);
 		
-	}
-
-	@Override
-	public User selectByPrimaryKey(String id) {
-		
-		return userMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
@@ -211,6 +177,24 @@ public class UserServiceImpl implements UserService {
 	public User info(String userId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<User> listUser(User condition) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User insertUser(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateByPrimaryKey(User record) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

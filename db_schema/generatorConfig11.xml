@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1">
+    <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/shopcenterdb?useUnicode=true&amp;characterEncoding=utf8" 
+    	driverClass="com.mysql.jdbc.Driver" password="1234" userId="cheer" />
+    <javaModelGenerator targetPackage="com.cheer.mini.ums.model" targetProject="d:/test-src/main/java" />
+    <sqlMapGenerator targetPackage="com.cheer.mini.ums.dao" targetProject="d:/test-src/main/resources" />
+    <javaClientGenerator targetPackage="com.cheer.mini.ums.dao" targetProject="d:/test-src/main/resources" type="XMLMAPPER" />
+	
+	<table tableName="ums_order" domainObjectName="Order"
+			enableCountByExample="false" enableSelectByExample="true"
+			enableUpdateByExample="false" enableDeleteByExample="false">
+		</table>
+		<table tableName="ums_order_item" domainObjectName="OrderItem"
+			enableCountByExample="false" enableSelectByExample="true"
+			enableUpdateByExample="false" enableDeleteByExample="false">
+		</table>
+		<table tableName="ums_user" domainObjectName="User"
+			enableCountByExample="false" enableSelectByExample="true"
+			enableUpdateByExample="false" enableDeleteByExample="false">
+		</table>
+		<table tableName="ums_product" domainObjectName="Product"
+			enableCountByExample="false" enableSelectByExample="true"
+			enableUpdateByExample="false" enableDeleteByExample="false">
+		</table>
+    
+    
+  </context>
+</generatorConfiguration>

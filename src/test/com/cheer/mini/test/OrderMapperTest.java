@@ -46,7 +46,7 @@ public class OrderMapperTest {
 		List<Order> rt = orderMapper.selectByExample(example);
 		
 		logger.info("rt->" + rt);
-		
+
 	}
 	
 }

@@ -24,24 +24,21 @@ public interface UserService {
 			throws ServiceException;
 
 	public List<User> listUser(User condition);
-	
-	public User info(String userId);
-	
-	public void deleteByPrimaryKey(String userId);
-	
-	public User selectByPrimaryKey(String id);
-	
-	public void updateByPrimaryKeySelective(User record);
-	
-	public List<User> searchUser(User condition);
 
 	Integer count(User condition);
+	public User info(String userId);
 
 	List<User> list(User condition, Page page);
 	
 	public User insertUser(User user);
 
-	public User insertcreatUser(User user) throws ServiceException;
+	public void updateByPrimaryKey(User record);
+
+	User insertcreatUser(User userParam) throws ServiceException;
 
 	int createUser(CustomerUserCreateRequest userParam) throws ServiceException;
+	
+	public List<User> searchUser(User condition);
+	
+	
 }

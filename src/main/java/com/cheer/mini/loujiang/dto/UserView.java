@@ -6,8 +6,6 @@ import com.cheer.mini.base.Page;
 import com.cheer.mini.ums.model.Order;
 import com.cheer.mini.ums.model.User;
 
-
-
 public class UserView {
 	
 	private User condition;

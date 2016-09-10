@@ -3,6 +3,9 @@ package com.cheer.mini.loujiang.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -20,8 +23,8 @@ import com.cheer.mini.base.exception.ServiceException;
 import com.cheer.mini.base.model.ResultEntity;
 import com.cheer.mini.base.model.ResultEntityHashMapImpl;
 import com.cheer.mini.loujiang.dto.UserView;
+import com.cheer.mini.ums.dto.request.CustomerUserCreateRequest;
 import com.cheer.mini.ums.model.User;
-import com.cheer.mini.ums.service.serviceImpl.UserServiceImpl;
 import com.cheer.mini.loujiang.service.UserService;
 
 @Controller
@@ -29,7 +32,7 @@ import com.cheer.mini.loujiang.service.UserService;
 public class UserController {
 
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 	private Logger logger = Logger.getLogger(UserController.class);
 	private static List<User> userList = new ArrayList<User>();
 
@@ -46,7 +49,7 @@ public class UserController {
 		}
 		Integer total = userService.count(view.getCondition());
 		view.getPage().cal(total);
-		List<User> list = userService.list(view.getCondition(), view.getPage());
+		List<User> list = userService.list(view.getCondition());
 		view.setList(list);
 		model.addAttribute("view", view);
 		return "/loujiang/list";
@@ -60,7 +63,7 @@ public class UserController {
 		if (view == null) {
 			view = new UserView();
 		}
-		List<User> list = userService.searchUser(view.getCondition());
+		List<User> list = userService.list(view.getCondition());
 		view.setList(list);
 		model.addAttribute("view", view);
 		return "/loujiang/search";

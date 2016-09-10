@@ -103,8 +103,6 @@ public class User extends BaseEntity {
     public String getInfo(){
     	return this.toString();
     }
-    
-    
 
 	public Boolean getSelected() {
 		return selected;
@@ -113,15 +111,12 @@ public class User extends BaseEntity {
 	public void setSelected(Boolean selected) {
 		this.selected = selected;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", nickname=" + nickname
-				+ ", account=" + account + ", password=" + password + ", salt="
-				+ salt + ", gender=" + gender + ", accountTypeFk="
+		return "User [selected=" + selected + ", id=" + id + ", name=" + name + ", nickname=" + nickname + ", account="
+				+ account + ", password=" + password + ", salt=" + salt + ", gender=" + gender + ", accountTypeFk="
 				+ accountTypeFk + "]";
 	}
 
-	
-    
 }
