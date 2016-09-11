@@ -79,12 +79,12 @@
 			<form class="form-signin" role="form" id="form"
 				action="${pageContext.request.contextPath}/tinglin/add">
 				<h2 class="form-signin-heading">ADD Product</h2>
-				<input name="name" class="form-control" placeholder="name" required
-					autofocus /> <input name="description" class="form-control"
-					placeholder="description" required autofocus /> <input name="price"
-					class="form-control" placeholder="price" required autofocus /> <input
-					name="imageFullPath" class="form-control"
-					placeholder="imageFullPath" required autofocus />
+				<input name="proInfo.name" class="form-control" placeholder="name"
+					required autofocus /> <input name="proInfo.description"
+					class="form-control" placeholder="description" required autofocus />
+				<input name="proInfo.price" class="form-control" placeholder="price"
+					required autofocus /> <input name="proInfo.imageFullPath"
+					class="form-control" placeholder="imageFullPath" required autofocus />
 
 				<p>
 					<input class="btn btn-warning" type="submit" value="ADD THIS">

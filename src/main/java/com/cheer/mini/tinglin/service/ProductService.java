@@ -2,8 +2,7 @@ package com.cheer.mini.tinglin.service;
 
 import java.util.List;
 
-
-
+import com.cheer.mini.base.Page;
 import com.cheer.mini.ums.model.Product;
 
 
@@ -13,7 +12,7 @@ public interface ProductService {
 	
 	public void update(Product proInfo);
 	
-	public List<Product> list(Product condition);
+	public List<Product> list(Product condition,Page page);
 	
 	public Product info(String proInfo);
 	

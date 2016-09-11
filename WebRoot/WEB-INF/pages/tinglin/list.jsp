@@ -13,7 +13,8 @@
 			<table width="90%" cellspacing="0" cellpadding="5" border="2"
 				class="table table-striped  table-hover">
 				<tr bgcolor="gray">
-					<th width="2%" align="left">Choose</th>
+					<th width="5%" align="left"><input type="checkbox"
+						id="selectAll" />全 选</th>
 					<th width="20%" align="left">Image</th>
 					<th width="20%" align="left">Description</th>
 					<th width="15%" align="right">Name</th>
@@ -28,8 +29,8 @@
 								name="list[${loopStatus.index}].selected"> <input
 								type="hidden" value="${pro.id}"
 								name="list[${loopStatus.index}].id"></td>
-							<td><img src="WebRoot/WEB-INF/images/product/01.jpg"
-								alt="image 1" />图片无法显示</td>
+							<td><img src="${pro.imageFullPath}" width="80%" height="10%"
+								alt="image 1" /></td>
 							<td>${pro.description}</td>
 							<td align="left">${pro.name}</td>
 							<td align="left">${pro.price}</td>
@@ -60,6 +61,7 @@
 			<div style="float: right; width: 215px; margin-top: 20px;">
 
 				<p>
+
 					<form:input path="condition.name" cssClass="input-text" />
 					<input class="btn btn-warning" type="submit" value="Search">
 				</p>
@@ -79,6 +81,11 @@
 
 
 	<script>
+		$(function() {
+			$.checkBoxEvent($("#selectAll"),
+					$("input[name^=list][name$=selected]"));
+		});
+
 		function Profind(proId) {
 
 			document.forms[0].action = "${pageContext.request.contextPath}/tinglin/info";

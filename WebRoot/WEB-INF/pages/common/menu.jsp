@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
 <%@ taglib uri="http://www.opensymphony.com/oscache" prefix="cache"%>
-<script type="text/javascript" src="WebRoot/resources/jquery/jquery.scrollUp.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/jquery.scrollUp.js"></script>
 
 <script>

@@ -21,48 +21,82 @@ import com.cheer.mini.ums.service.OrderService;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-	
+
 	private Logger logger = Logger.getLogger(getClass());
-	
+
 	@Autowired
 	private OrderMapper orderMapper;
 	@Autowired
 	private OrderItemMapper orderItemMapper;
-	
-	private static String ADMIN_ID="ADMIN1E35D8911E68C9F3C970ED7EF76";
-	
+
+	private static String ADMIN_ID = "ADMIN1E35D8911E68C9F3C970ED7EF76";
+
 	@Override
 	@Transactional
 	public void save(Order orderInfo) {
-		logger.info("Input Param [orderInfo] -> " + orderInfo );
-		orderInfo.setId(StringUtil.createUUID());
-		orderInfo.setCreatorFk(ADMIN_ID);
-		orderInfo.setUpdaterFk(ADMIN_ID);
-		orderInfo.setDateCreate(new Date());
-		orderInfo.setDateUpdate(new Date());
-		orderMapper.insert(orderInfo);
-		if(orderInfo.getItems()!=null 
-				&& !orderInfo.getItems().isEmpty()){
-			for(int i=0;i<orderInfo.getItems().size();i++){
+		if (orderInfo.getId() == null || StringUtil.isEmpty(orderInfo.getId())) {
+			// TODO insert
+			logger.info("Order insert into<-------------------");
+			orderInfo.setId(StringUtil.createUUID());
+			orderInfo.setCreatorFk(ADMIN_ID);
+			orderInfo.setUpdaterFk(ADMIN_ID);
+			orderInfo.setDateCreate(new Date());
+			orderInfo.setDateUpdate(new Date());
+			orderMapper.insert(orderInfo);
+
+		}
+		if (orderInfo.getItems() != null && !orderInfo.getItems().isEmpty()) {
+			for (int i = 0; i < orderInfo.getItems().size(); i++) {
 				OrderItem item = orderInfo.getItems().get(i);
-				item.setId(StringUtil.createUUID());
-				item.setOrderId(orderInfo.getId());
-				orderItemMapper.insert(item);
+				if (item != null && StringUtil.isEmpty(item.getProductName()) && item.getPrice() != null) {
+					item.setId(StringUtil.createUUID());
+					item.setOrderId(orderInfo.getId());
+					logger.info("Just--->insert---- -> ");
+					orderItemMapper.insert(item);
+				}
 			}
+
+		} else {
+			// TODO Update
+			logger.info("Order update<<<<--------------------");
+			orderMapper.updateByPrimaryKeySelective(orderInfo);
+			if (orderInfo.getItems() != null && !orderInfo.getItems().isEmpty()) {
+				OrderItemExample example = new OrderItemExample();
+				example.createCriteria().andOrderIdEqualTo(orderInfo.getId());
+				List<OrderItem> oldList = orderItemMapper.selectByExample(example);
+				if (oldList != null && oldList.isEmpty()) {
+					for (int i = 0; i < oldList.size(); i++) {
+						OrderItem olditem = oldList.get(i);
+						orderItemMapper.deleteByPrimaryKey(olditem.getId());
+
+					}
+
+					for (int i = 0; i < orderInfo.getItems().size(); i++) {
+						OrderItem item = orderInfo.getItems().get(i);
+						if (item != null && StringUtil.isEmpty(item.getProductName()) && item.getPrice() != null) {
+							item.setId(StringUtil.createUUID());
+							logger.info("Update--->insert---- -> ");
+							item.setOrderId(orderInfo.getId());
+							orderItemMapper.insert(item);
+						}
+					}
+				}
+			}
+			logger.info("Input Param [orderInfo] -> ");
 		}
 	}
 
 	@Override
-	public List<Order> list(Order condition,Page page) {
+	public List<Order> list(Order condition, Page page) {
 		OrderExample example = new OrderExample();
 		Criteria criteria = example.createCriteria();
-		if(condition!=null && StringUtil.notEmpty(condition.getTitle())){
+		if (condition != null && StringUtil.notEmpty(condition.getTitle())) {
 			criteria.andTitleLike(condition.getTitle() + "%");
 		}
-		if(condition!=null && condition.getStatus()!=-1){
-			criteria.andStatusEqualTo(new Byte(((byte)condition.getStatus())));
+		if (condition != null && condition.getStatus() != -1) {
+			criteria.andStatusEqualTo(new Byte(((byte) condition.getStatus())));
 		}
-		if(page!=null){
+		if (page != null) {
 			example.setPage(page);
 		}
 		return orderMapper.selectByExample(example);
@@ -84,8 +118,8 @@ public class OrderServiceImpl implements OrderService {
 		OrderItemExample oie = new OrderItemExample();
 		oie.createCriteria().andOrderIdEqualTo(orderId);
 		List<OrderItem> items = orderItemMapper.selectByExample(oie);
-		if(items!=null && !items.isEmpty()){
-			for(int i=0;i<items.size();i++){
+		if (items != null && !items.isEmpty()) {
+			for (int i = 0; i < items.size(); i++) {
 				OrderItem item = items.get(i);
 				orderItemMapper.deleteByPrimaryKey(item.getId());
 			}
@@ -96,14 +130,13 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	@Transactional
 	public void update(Order orderInfo) {
-		
+
 		orderMapper.updateByPrimaryKey(orderInfo);
-		if(orderInfo.getItems()!=null
-				&& !orderInfo.getItems().isEmpty()){
-			for(int i=0;i<orderInfo.getItems().size();i++){
+		if (orderInfo.getItems() != null && !orderInfo.getItems().isEmpty()) {
+			for (int i = 0; i < orderInfo.getItems().size(); i++) {
 				OrderItem item = orderInfo.getItems().get(i);
 				orderItemMapper.updateByPrimaryKey(item);
-				
+
 			}
 		}
 	}
@@ -112,19 +145,19 @@ public class OrderServiceImpl implements OrderService {
 	public Integer count(Order condition) {
 		OrderExample example = new OrderExample();
 		Criteria criteria = example.createCriteria();
-		if(condition!=null && StringUtil.notEmpty(condition.getTitle())){
+		if (condition != null && StringUtil.notEmpty(condition.getTitle())) {
 			criteria.andTitleLike(condition.getTitle() + "%");
 		}
-		if(condition!=null && condition.getStatus()!=-1){
-			criteria.andStatusEqualTo(new Byte(((byte)condition.getStatus())));
+		if (condition != null && condition.getStatus() != -1) {
+			criteria.andStatusEqualTo(new Byte(((byte) condition.getStatus())));
 		}
 		return orderMapper.selectCountByExample(example);
 	}
-	
+
 	/***
-	public void commonProcess(){
-		
-	}
-	**/
-	
+	 * public void commonProcess(){
+	 * 
+	 * }
+	 **/
+
 }

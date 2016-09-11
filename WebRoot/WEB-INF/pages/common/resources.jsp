@@ -38,8 +38,7 @@
   
   <!-- jquery自定义扩展 -->
   <script src="${path}/scripts/plugins/jquery.cheer.core.js"></script>
-  
     
   <!-- ajax通用请求 -->
   <script src="${path}/scripts/common/ajaxUtil.js"></script>
- 
+  <script src="${path}/scripts/common/extends.js"></script>

@@ -39,7 +39,7 @@ public class TinglinController {
 		}
 		Integer total = proService.count(view.getCondition());
 		view.getPage().cal(total);
-		List<Product> list1 = proService.list(view.getCondition());
+		List<Product> list1 = proService.list(view.getCondition(), view.getPage());
 		view.setList(list1);
 		model.addAttribute("view", view);
 		return "tinglin/list";
@@ -80,15 +80,17 @@ public class TinglinController {
 	};
 
 	@RequestMapping("/add")
-	public String add(Product pro) {
-		logger.info("Input Param [view] -> " + pro);
-		proService.save(pro);
-		return "tinglin/list";
+	public String add(@ModelAttribute ProductView view, Model model) {
+		logger.info("Input Param [view] -> " + view);
+		if (view.getProInfo() != null && view.getProInfo().getId() != null && view.getProInfo().getId() != "") {
+			proService.save(view.getProInfo());
+		}
+		return list(view, model);
 	};
 
 	@RequestMapping("/index")
 	public String index() {
-		return "tinglin/list";
+		return "ums/index";
 	}
 
 }
