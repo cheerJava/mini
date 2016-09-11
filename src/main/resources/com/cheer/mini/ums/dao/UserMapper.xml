@@ -49,20 +49,42 @@
     id, name, nickname, account, password, salt, gender, account_type_fk, date_create, 
     date_update, creator_fk, updater_fk, is_valid
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cheer.mini.ums.model.UserExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from ums_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
+  
+  <select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.cheer.mini.ums.model.UserExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from ums_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="page != null">
+			limit ${(page.pageNo-1)*page.pageSize},${page.pageSize}
+		</if>
+	</select>
+	<select id="selectCountByExample" resultType="java.lang.Integer"
+		parameterType="com.cheer.mini.ums.model.UserExample">
+		select count(1) from (select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from ums_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		) cnt
+	</select>
+ 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

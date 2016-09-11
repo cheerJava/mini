@@ -111,7 +111,7 @@ public class User extends BaseEntity {
 	public void setSelected(Boolean selected) {
 		this.selected = selected;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "User [selected=" + selected + ", id=" + id + ", name=" + name + ", nickname=" + nickname + ", account="
@@ -119,7 +119,4 @@ public class User extends BaseEntity {
 				+ accountTypeFk + "]";
 	}
 
-
-
-    
 }

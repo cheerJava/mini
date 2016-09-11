@@ -12,6 +12,8 @@ public interface OrderMapper {
     int insertSelective(Order record);
 
     List<Order> selectByExample(OrderExample example);
+    
+    Integer selectCountByExample(OrderExample example);
 
     Order selectByPrimaryKey(String id);
 

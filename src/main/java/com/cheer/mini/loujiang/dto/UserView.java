@@ -2,47 +2,67 @@ package com.cheer.mini.loujiang.dto;
 
 import java.util.List;
 
+import com.cheer.mini.base.Page;
+import com.cheer.mini.ums.model.Order;
 import com.cheer.mini.ums.model.User;
 
-
 public class UserView {
+	
+	private User condition;
 	
 	private List<User> list;
 	
 	private User editInfo;
+
+	private Page page;
 	
-	private User accountCondition;
+
+	public User getCondition() {
+		return condition;
+	}
+
+
+
+	public void setCondition(User condition) {
+		this.condition = condition;
+	}
+
+
 
 	public List<User> getList() {
 		return list;
 	}
 
+
+
 	public void setList(List<User> list) {
 		this.list = list;
 	}
+
+
 
 	public User getEditInfo() {
 		return editInfo;
 	}
 
+
+
 	public void setEditInfo(User editInfo) {
 		this.editInfo = editInfo;
 	}
 
-	public User getAccountCondition() {
-		return accountCondition;
+	public Page getPage() {
+		return page;
 	}
 
-	public void setAccountCondition(User accountCondition) {
-		this.accountCondition = accountCondition;
+	public void setPage(Page page) {
+		this.page = page;
 	}
 
 	@Override
 	public String toString() {
-		return "UserView [list=" + list + ", editInfo=" + editInfo + ", accountCondition=" + accountCondition + "]";
+		return "UserView [condition=" + condition + ", list=" + list + ", editInfo=" + editInfo + ", page=" + page
+				+ "]";
 	}
-
-
-	
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.cheer.mini.base.Page;
 import com.cheer.mini.base.exception.ServiceException;
 import com.cheer.mini.ums.dto.request.CustomerUserCreateRequest;
 import com.cheer.mini.ums.dto.request.registerRequest;
@@ -24,12 +25,20 @@ public interface UserService {
 
 	public List<User> listUser(User condition);
 
+	Integer count(User condition);
 	public User info(String userId);
+
+	List<User> list(User condition, Page page);
 	
-	public void deleteByPrimaryKey(String userId);
+	public User insertUser(User user);
 
 	public void updateByPrimaryKey(User record);
 
 	User insertcreatUser(User userParam) throws ServiceException;
 
+	int createUser(CustomerUserCreateRequest userParam) throws ServiceException;
+	
+	public List<User> searchUser(User condition);
+	
+	
 }
