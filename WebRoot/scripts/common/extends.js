@@ -47,5 +47,19 @@ $.extend({
 				}
 			});
 		});
+	},
+	
+	disableForm : function(form){
+		console.log("call disableForm");
+		console.log("Input Param >>>>> [form] :" + form);
+		
+		
+	},
+	submitForm : function(form){
+		form.submit();
+		$.disableForm(form);
 	}
+	
+	
+	
 });

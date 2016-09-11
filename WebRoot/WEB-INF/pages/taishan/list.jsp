@@ -73,7 +73,7 @@
 	function editOrder(orderId){
 		document.forms[0].action = "${pageContext.request.contextPath}/taishan/info";
 		document.forms[0].editInfoId.value = orderId;
-		document.forms[0].submit();
+		$.submitForm(document.forms[0]);
 	}
 	
 	function deleteOrders(){
@@ -87,7 +87,7 @@
 		if(_selected){
 			if(confirm("你确定要删除这些记录？")){
 				document.forms[0].action = "${pageContext.request.contextPath}/taishan/delete";
-				document.forms[0].submit();	
+				$.submitForm(document.forms[0]);
 			}
 		}else{
 			alert("需要至少选一条记录！");
@@ -97,7 +97,7 @@
 	function page(pageNo){
 		$("#pageNo").val(pageNo);
 		document.forms[0].action = "${pageContext.request.contextPath}/taishan/list";
-		document.forms[0].submit();
+		$.submitForm(document.forms[0]);
 		
 	}
 	
