@@ -27,7 +27,9 @@
 		</br>
 		<table width="100%" class="table table-hover table-condensed">
 			<tr>
-				<th>选择</th>
+				<th>选择
+					<input type="checkbox" id="selectAll">
+				</th>
 				<th>标题</th>
 				<th>金额</th>
 				<th>状态</th>
@@ -103,6 +105,11 @@
 		document.forms[0].action = "${pageContext.request.contextPath}/taishan/add";
 		document.forms[0].submit();
 	}
+	
+	$(function(){
+		$.checkBoxEvent($("#selectAll"),
+			$("input[name^=list][name$=selected]"));
+	});
 	
 	</script>
 	

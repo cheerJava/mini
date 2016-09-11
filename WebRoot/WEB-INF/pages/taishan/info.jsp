@@ -12,7 +12,7 @@
 				method="post" modelAttribute="view">
 				<form:hidden path="condition.status" />
 				<form:hidden path="editInfo.id" />
-
+				
 				<layout:Page page="${view.page}" isView="false" />
 
 				<div class="form-group">
@@ -89,18 +89,12 @@
 			var record = "<tr><td><input type='hidden' name='editInfo.items[" +index+  "].id' />"+
 				"<input type='hidden' name='editInfo.items["+index+"].orderId' value='' />"+
 				"<input type='text' name='editInfo.items["+index+"].productName'></td>" +
-				
 				"<td><input type='text' name='editInfo.items["+index+"].price'></td>" +
-				
 				"<td><input type='text' name='editInfo.items["+index+"].number'> <input class='btn btn-default' type='button' value='删除' onclick='delItem(this)'></td></tr>";
 			$("#eidtInfoItems").append(record);
 		}
 		function delItem(element){
 			$(element).parent().parent().remove();
 		}
-		
-		
 	</script>
-
-
 </layout:Default>

@@ -73,10 +73,8 @@ public class TaiShanController {
 	@RequestMapping("/save")
 	public String save(@ModelAttribute TaishanView view ,Model model ){
 		logger.info("Input Param [view] -> " + view);
-		if(view.getEditInfo()!=null && 
-				view.getEditInfo().getId()!=null
-				&& view.getEditInfo().getId()!=""){
-			orderService.update(view.getEditInfo());
+		if(view.getEditInfo()!=null){
+			orderService.save(view.getEditInfo());
 		}
 		return list(view, model);
 	};

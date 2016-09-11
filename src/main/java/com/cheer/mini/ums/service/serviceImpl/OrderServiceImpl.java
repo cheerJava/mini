@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cheer.mini.base.Page;
+import com.cheer.mini.base.interceptors.LoginInterceptor;
 import com.cheer.mini.base.util.StringUtil;
 import com.cheer.mini.ums.dao.OrderItemMapper;
 import com.cheer.mini.ums.dao.OrderMapper;
@@ -28,28 +29,62 @@ public class OrderServiceImpl implements OrderService {
 	private OrderMapper orderMapper;
 	@Autowired
 	private OrderItemMapper orderItemMapper;
-	
-	private static String ADMIN_ID="ADMIN1E35D8911E68C9F3C970ED7EF76";
-	
+		
 	@Override
 	@Transactional
 	public void save(Order orderInfo) {
-		logger.info("Input Param [orderInfo] -> " + orderInfo );
-		orderInfo.setId(StringUtil.createUUID());
-		orderInfo.setCreatorFk(ADMIN_ID);
-		orderInfo.setUpdaterFk(ADMIN_ID);
-		orderInfo.setDateCreate(new Date());
-		orderInfo.setDateUpdate(new Date());
-		orderMapper.insert(orderInfo);
-		if(orderInfo.getItems()!=null 
-				&& !orderInfo.getItems().isEmpty()){
-			for(int i=0;i<orderInfo.getItems().size();i++){
-				OrderItem item = orderInfo.getItems().get(i);
-				item.setId(StringUtil.createUUID());
-				item.setOrderId(orderInfo.getId());
-				orderItemMapper.insert(item);
+		if(orderInfo.getId() == null
+				|| StringUtil.isEmpty(orderInfo.getId())){
+			//TODO insert 
+			logger.info("Order insert into");
+			orderInfo.setId(StringUtil.createUUID());
+			orderInfo.setCreatorFk(LoginInterceptor.getCurrentUser().getId());
+			orderInfo.setUpdaterFk(LoginInterceptor.getCurrentUser().getId());
+			orderInfo.setDateCreate(new Date());
+			orderInfo.setDateUpdate(new Date());
+			orderMapper.insert(orderInfo);
+			if(orderInfo.getItems()!=null 
+					&& !orderInfo.getItems().isEmpty()){
+				for(int i=0;i<orderInfo.getItems().size();i++){
+					OrderItem item = orderInfo.getItems().get(i);
+					if(item!=null
+							&& !StringUtil.isEmpty(item.getProductName())
+							&& item.getPrice()!=null){
+						item.setId(StringUtil.createUUID());
+						item.setOrderId(orderInfo.getId());
+						orderItemMapper.insert(item);
+					}
+				}
+			}
+		}else{
+			logger.info("Order update");
+			orderMapper.updateByPrimaryKeySelective(orderInfo);
+			if(orderInfo.getItems()!=null
+					&& !orderInfo.getItems().isEmpty()){
+				
+				OrderItemExample example = new OrderItemExample();
+				example.createCriteria().andOrderIdEqualTo(orderInfo.getId());
+				
+				List<OrderItem> oldList = orderItemMapper.selectByExample(example);
+				if(oldList!=null && !oldList.isEmpty()){
+					for(int i=0;i<oldList.size();i++){
+						OrderItem oldItem = oldList.get(i);
+						orderItemMapper.deleteByPrimaryKey(oldItem.getId());
+					}
+				}
+				for(int i=0;i<orderInfo.getItems().size();i++){
+					OrderItem item = orderInfo.getItems().get(i);
+					if(item!=null  
+							&& !StringUtil.isEmpty(item.getProductName())
+							&& item.getPrice()!=null){
+						item.setId(StringUtil.createUUID());
+						item.setOrderId(orderInfo.getId());
+						orderItemMapper.insert(item);
+					}
+				}
 			}
 		}
+		logger.info("Input Param [orderInfo] -> " + orderInfo );
 	}
 
 	@Override
@@ -97,15 +132,7 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	public void update(Order orderInfo) {
 		
-		orderMapper.updateByPrimaryKey(orderInfo);
-		if(orderInfo.getItems()!=null
-				&& !orderInfo.getItems().isEmpty()){
-			for(int i=0;i<orderInfo.getItems().size();i++){
-				OrderItem item = orderInfo.getItems().get(i);
-				orderItemMapper.updateByPrimaryKey(item);
-				
-			}
-		}
+		
 	}
 
 	@Override
