@@ -27,7 +27,9 @@
 		</br>
 		<table width="100%" class="table table-hover table-condensed">
 			<tr>
-				<th>选择</th>
+				<th>选择
+					<input type="checkbox" id="selectAll">
+				</th>
 				<th>标题</th>
 				<th>金额</th>
 				<th>状态</th>
@@ -71,7 +73,7 @@
 	function editOrder(orderId){
 		document.forms[0].action = "${pageContext.request.contextPath}/taishan/info";
 		document.forms[0].editInfoId.value = orderId;
-		document.forms[0].submit();
+		$.submitForm(document.forms[0]);
 	}
 	
 	function deleteOrders(){
@@ -85,7 +87,7 @@
 		if(_selected){
 			if(confirm("你确定要删除这些记录？")){
 				document.forms[0].action = "${pageContext.request.contextPath}/taishan/delete";
-				document.forms[0].submit();	
+				$.submitForm(document.forms[0]);
 			}
 		}else{
 			alert("需要至少选一条记录！");
@@ -95,7 +97,7 @@
 	function page(pageNo){
 		$("#pageNo").val(pageNo);
 		document.forms[0].action = "${pageContext.request.contextPath}/taishan/list";
-		document.forms[0].submit();
+		$.submitForm(document.forms[0]);
 		
 	}
 	
@@ -103,6 +105,11 @@
 		document.forms[0].action = "${pageContext.request.contextPath}/taishan/add";
 		document.forms[0].submit();
 	}
+	
+	$(function(){
+		$.checkBoxEvent($("#selectAll"),
+			$("input[name^=list][name$=selected]"));
+	});
 	
 	</script>
 	

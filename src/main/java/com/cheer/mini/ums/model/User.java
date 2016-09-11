@@ -15,7 +15,7 @@ public class User extends BaseEntity {
     //private String id = StringUtil.createUUID();
 	private Boolean selected = Boolean.FALSE;
 	
-	private String id=StringUtil.createUUID();
+	private String id;
 	
     private String name;
 

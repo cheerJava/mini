@@ -42,3 +42,4 @@
   <!-- ajax通用请求 -->
   <script src="${path}/scripts/common/ajaxUtil.js"></script>
   <script src="${path}/scripts/common/extends.js"></script>
+ 

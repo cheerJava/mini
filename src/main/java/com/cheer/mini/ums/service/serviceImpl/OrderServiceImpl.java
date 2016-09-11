@@ -81,6 +81,55 @@ public class OrderServiceImpl implements OrderService {
 						}
 					}
 				}
+		if(orderInfo.getId() == null
+				|| StringUtil.isEmpty(orderInfo.getId())){
+			//TODO insert 
+			logger.info("Order insert into");
+			orderInfo.setId(StringUtil.createUUID());
+			orderInfo.setCreatorFk(LoginInterceptor.getCurrentUser().getId());
+			orderInfo.setUpdaterFk(LoginInterceptor.getCurrentUser().getId());
+			orderInfo.setDateCreate(new Date());
+			orderInfo.setDateUpdate(new Date());
+			orderMapper.insert(orderInfo);
+			if(orderInfo.getItems()!=null 
+					&& !orderInfo.getItems().isEmpty()){
+				for(int i=0;i<orderInfo.getItems().size();i++){
+					OrderItem item = orderInfo.getItems().get(i);
+					if(item!=null
+							&& !StringUtil.isEmpty(item.getProductName())
+							&& item.getPrice()!=null){
+						item.setId(StringUtil.createUUID());
+						item.setOrderId(orderInfo.getId());
+						orderItemMapper.insert(item);
+					}
+				}
+			}
+		}else{
+			logger.info("Order update");
+			orderMapper.updateByPrimaryKeySelective(orderInfo);
+			if(orderInfo.getItems()!=null
+					&& !orderInfo.getItems().isEmpty()){
+				
+				OrderItemExample example = new OrderItemExample();
+				example.createCriteria().andOrderIdEqualTo(orderInfo.getId());
+				
+				List<OrderItem> oldList = orderItemMapper.selectByExample(example);
+				if(oldList!=null && !oldList.isEmpty()){
+					for(int i=0;i<oldList.size();i++){
+						OrderItem oldItem = oldList.get(i);
+						orderItemMapper.deleteByPrimaryKey(oldItem.getId());
+					}
+				}
+				for(int i=0;i<orderInfo.getItems().size();i++){
+					OrderItem item = orderInfo.getItems().get(i);
+					if(item!=null  
+							&& !StringUtil.isEmpty(item.getProductName())
+							&& item.getPrice()!=null){
+						item.setId(StringUtil.createUUID());
+						item.setOrderId(orderInfo.getId());
+						orderItemMapper.insert(item);
+					}
+				}
 			}
 			logger.info("Input Param [orderInfo] -> ");
 		}
@@ -139,6 +188,7 @@ public class OrderServiceImpl implements OrderService {
 
 			}
 		}
+		
 	}
 
 	@Override

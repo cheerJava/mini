@@ -30,7 +30,9 @@
 					标题		金额			状态			 
 			 -->
 			<tr>
-				<th>选择</th>
+				<th>选择
+					<input type="checkbox" id="selectAll">
+				</th>
 				<th>用户名</th>
 				<th>昵称</th>
 				<th>性别</th>
@@ -142,6 +144,11 @@
 		document.forms[0].action = "${pageContext.request.contextPath}/loujiang/list";
 		document.forms[0].submit();
 	}
+	
+	$(function(){
+		$.checkBoxEvent($("#selectAll"),
+			$("input[name^=list][name$=selected]"));
+	});
 
 	
 	</script>

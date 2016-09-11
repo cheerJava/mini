@@ -1,29 +1,25 @@
 if (window.console) {
-	console.log("extends loading...");
+	console.log("Extends loading...");
 }
-/*
- * function checkBoxselectALL(allElement,elements){ }
+
+/*******************************************************************************
+ * function checkBoxSelectAll(allElement, elemens){ }
  */
 
 $.extend({
 	checkBoxEvent : function(tiger, monkeies) {
-		console.log("call checkBoxEvent...");
-		console.log("input Param>>>>>>>[tiger]:" + tiger);
-		console.log("input Param>>>>>>>[monkeys]:" + monkeies);
-		/*
-		 * tiger.click(function() { var _checked = $(this).prop("checked");
-		 * monkeies.each(function() { if (_checked) { $(this).prop("checked",
-		 * _checked); } else { $(this).removeProp("checked"); } }) });
-		 */
-
+		console.log("call checkBoxEvent");
+		console.log("Input Param >>>>> [tiger] :" + tiger);
+		console.log("Input Param >>>>> [monkeies] :" + monkeies);
+		
 		tiger.click(function() {
 			var check = $(this).prop("checked");
 			if (check) {
-				$(monkeies).each(function() {
+				monkeies.each(function() {
 					$(this).prop("checked", "checked");
 				});
 			} else {
-				$(monkeies).each(function() {
+				monkeies.each(function() {
 					$(this).removeProp("checked");
 				});
 			}
@@ -33,8 +29,8 @@ $.extend({
 				var length = monkeies.length;
 				var _length = 0;
 				monkeies.each(function() {
-					var check = $(this).prop("checked");
-					if (check) {
+					var _check = $(this).prop("checked");
+					if (_check) {
 						_length++;
 					}
 				});
@@ -51,15 +47,20 @@ $.extend({
 				}
 			});
 		});
-
 	},
-
-	disableFrom : function(form) {
-
+	
+	disableForm : function(form){
+		console.log("call disableForm");
+		console.log("Input Param >>>>> [form] :" + form);
+		
+		
 	},
-	submitFrom : function(form) {
-		form.sumit();
-		disableFrom(form)
+	submitForm : function(form){
+		form.submit();
+		$.disableForm(form);
 	}
-
+	
+	
+	
 });
+>>>>>>> branch 'master' of https://github.com/cheerJava/mini
