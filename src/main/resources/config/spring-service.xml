@@ -20,5 +20,12 @@
 
 	<!-- 配置基于注解的声明式事务 -->
  	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
-
+	
+ 	<bean class="com.cheer.mini.base.spring.SpringContextHolder" />
+ 	
+ 	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache-local.xml" />
+	</bean>
+ 	
 </beans>
