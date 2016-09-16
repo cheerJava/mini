@@ -45,10 +45,18 @@
   <script type="text/javascript">
 	var app_alert_level = {
 		info : "信息",
-		error : "出错",
+		danger : "出错",
 		success : "成功",
 		warning : "警告"
 	};
+	
+	/***
+	app_alert_level[info] =  '信息'
+	app_alert_level[danger] =  '出错'
+	app_alert_level[success] =  '成功'
+	app_alert_level[warning] =  '警告'
+	***/
+	
 	var app_error_network = "网络错误，请稍后再试！";
    </script>
   <script src="${path}/scripts/common/extends.js"></script>

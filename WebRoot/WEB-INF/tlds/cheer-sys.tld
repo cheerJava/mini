@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<description>JSTL 1.1 functions library</description>
+	<display-name>JSTL functions cheer</display-name>
+	<tlib-version>1.1</tlib-version>
+	<short-name>cs</short-name>
+	<uri>http://www.cheer.com/mini/jstl/sys</uri>
+	
+	<function>
+		<description>获取字典数据</description>
+		<name>dicts</name>
+		<function-class>com.cheer.mini.base.util.jsp.DictUtil</function-class>
+		<function-signature>java.lang.List list(java.lang.String)</function-signature>
+		<example>${cheer:dicts}</example>
+	</function>
+	<!--  example
+	<function>
+		<description>获取管理路径</description>
+		<name>getAdminPath</name>
+		<function-class>net.frank.yangtes.commons.config.Global</function-class>
+		<function-signature>java.lang.String getAdminPath()</function-signature>
+		<example>${fns:getAdminPath()}</example>
+	</function>
+	 -->
+</taglib>

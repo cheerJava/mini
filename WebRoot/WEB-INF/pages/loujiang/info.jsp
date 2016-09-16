@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="cs" uri="http://www.cheer.com/mini/jstl/sys" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="layout" tagdir="/WEB-INF/tags/layout" %>
 
@@ -23,7 +24,15 @@
 				<td>账户</td><td><form:input path="editInfo.account" /></td>
 			</tr>
 			<tr>
-				<td>性别</td><td><form:input path="editInfo.gender" /></td>
+				<td>性别</td><td>
+				<c:forEach items="${cs:dicts('gender')}" var="dict" varStatus="loop">
+					<input type="radio" value="${dict.value}" 
+						<c:if test="${dict.value eq view.editInfo.gender}">
+						checked="checked"
+						</c:if> 
+						name="editInfo.gender"> ${dict.label}
+				</c:forEach>
+				</td>
 			</tr>
 			<tr>
 				<td>权限</td><td><form:input path="editInfo.accountTypeFk" /></td>

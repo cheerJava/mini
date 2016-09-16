@@ -17,7 +17,7 @@
 
 				<div class="form-group">
 					<label>标题</label>
-					<form:input path="editInfo.title" cssClass="form-control" />
+					<form:input id="title" path="editInfo.title" cssClass="form-control" />
 				</div>
 
 				<div class="form-group">
@@ -71,7 +71,7 @@
 							value="添加" onclick="addItem()"></td>
 					</tr>
 				</table>
-				<input class="btn btn-primary" type="submit" value="保存">
+				<input class="btn btn-primary" type="button" onclick="save()" value="保存">
 				<input class="btn btn-default" type="button" value="取消"
 					onclick="cancel()">
 			</form:form>
@@ -79,6 +79,14 @@
 	</div>
 
 	<script>
+		function save(){
+			var _title = $("#title").val();
+			if(_title==null || _title==''){
+				$.msg("标题不能为空!",'danger');
+				return;
+			}
+			$.submitForm(document.forms[0]);
+		}
 		function cancel(){
 			document.forms[0].action = "${pageContext.request.contextPath}/taishan/list";
 			document.forms[0].submit();

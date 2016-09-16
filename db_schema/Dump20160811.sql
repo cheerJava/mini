@@ -102,6 +102,23 @@ INSERT INTO `ums_user` VALUES ('ADMIN1E35D8911E68C9F3C970ED7EF76','超级管理�
 /*!40000 ALTER TABLE `ums_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+CREATE TABLE sys_dict(
+	id char(32) NOT NULL COMMENT '编号',
+	value varchar(100) NOT NULL COMMENT '数据值',
+	label varchar(100) NOT NULL COMMENT '标签名',
+	type varchar(100) NOT NULL COMMENT '类型',
+	description varchar(100) NOT NULL COMMENT '描述',
+	sort decimal(10,0) NOT NULL COMMENT '排序（升序）',
+	`date_create` datetime NOT NULL,
+  `date_update` datetime NOT NULL,
+  `creator_fk` varchar(32) NOT NULL,
+  `updater_fk` varchar(32) NOT NULL,
+  `is_valid` tinyint(4) NOT NULL default '1',
+	PRIMARY KEY (id)
+) COMMENT = '字典表';
+
+
 --
 -- Dumping events for database 'shopcenterdb'
 --
