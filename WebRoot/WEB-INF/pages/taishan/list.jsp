@@ -109,6 +109,7 @@
 	$(function(){
 		$.checkBoxEvent($("#selectAll"),
 			$("input[name^=list][name$=selected]"));
+		$.msg("aaaa");
 	});
 	
 	</script>

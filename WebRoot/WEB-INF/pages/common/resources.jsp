@@ -21,13 +21,13 @@
   <script src="${path}/resources/jquery/1.11.1/jquery.min.js"></script>
   <script src="${path}/resources/bootstrap/3.3.0/js/bootstrap.min.js"></script>
   <script src="${path}/resources/plugins/sidebar/offcanvas.js"></script>
+  
   <script src="${path}/resources/plugins/datetime/moment.min.js"></script>
   <script src="${path}/resources/plugins/datetime/daterangepicker.js"></script>
   <script src="${path}/resources/plugins/datetime/bootstrap-datetimepicker.min.js"></script>
   <script src="${path}/resources/plugins/datetime/bootstrap-datetimepicker.zh-CN.js"></script>
   <script src="${path}/resources/plugins/jquery.form/jquery.form.js"></script>
   <script src="${path}/resources/plugins/jquery.form/form.js"></script>
-
   
   <!-- JQuery-validation JS -->
   <script src="${path}/resources/jquery-validation/1.11.1/jquery.validate.min.js"></script>
@@ -41,5 +41,14 @@
     
   <!-- ajax通用请求 -->
   <script src="${path}/scripts/common/ajaxUtil.js"></script>
+  
+  <script type="text/javascript">
+	var app_alert_level = {
+		info : "信息",
+		error : "出错",
+		success : "成功",
+		warning : "警告"
+	};
+	var app_error_network = "网络错误，请稍后再试！";
+   </script>
   <script src="${path}/scripts/common/extends.js"></script>
- 

@@ -33,17 +33,12 @@ public class Order extends BaseEntity {
 	private int status = ORDER_STATUS.DRAFT;
 	
 	private List<OrderItem> items;
-	
-	public Order(){
-		logger.info("new Ordrer ()");
-	}
 
 	public Boolean getSelected() {
 		return selected;
 	}
 
 	public void setSelected(Boolean selected) {
-		logger.info("new ordrer.setSelected ("+selected+")");
 		this.selected = selected;
 	}
 
@@ -52,7 +47,6 @@ public class Order extends BaseEntity {
 	}
 
 	public void setId(String id) {
-		logger.info("new ordrer.setId ()");
 		this.id = id;
 	}
 
@@ -85,7 +79,6 @@ public class Order extends BaseEntity {
 	}
 
 	public void setStatus(int status) {
-		logger.info("new ordrer.setStatus ()");
 		this.status = status;
 	}
 	

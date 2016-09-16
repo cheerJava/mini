@@ -52,15 +52,50 @@ $.extend({
 	disableForm : function(form){
 		console.log("call disableForm");
 		console.log("Input Param >>>>> [form] :" + form);
-		
+		$('input[type!=hidden]',form).each(function (){
+			$(this).attr("disabled","disabled");
+		});
+		$('textarea',form).each(function (){
+			$(this).attr("disabled","disabled");
+		});
+		$('a',form).each(function (){
+			$(this).attr("herf","#");
+			$(this).attr("onclick",function(){return false;});
+		});
 		
 	},
 	submitForm : function(form){
 		form.submit();
 		$.disableForm(form);
+	},
+	
+	msg:function(message,level,targetElement){
+		/**
+		 * <div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <strong>Warning!</strong> Better check yourself, you're not looking too good.
+</div>
+		 */
+		var _level = null;
+		if(level == null){
+			_level = "warning"
+		}else{
+			_level = level;
+		}
+		var closeButton = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>";
+		var msgDiv = "<div class=\"alert alert-"+_level+" alert-dismissible\" role=\"alert\"></div>";
+		var content = "<strong>"+app_alert_level[_level]+"</strong>" +message;
+		var _msgDiv = $(msgDiv);
+		var _closeButton = $(closeButton);
+		_msgDiv.prepend(_closeButton);
+		_msgDiv.prepend(content);
+		if(targetElement == null){
+			$("#alertMsgDiv").prepend(_msgDiv);
+		}else{
+			$(targetElement).prepend(_msgDiv);
+		}
 	}
 	
 	
 	
 });
->>>>>>> branch 'master' of https://github.com/cheerJava/mini
