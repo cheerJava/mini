@@ -100,10 +100,6 @@ $(function(){
 			
 			<button id="btnSubmit" class="btn btn-lg btn-primary btn-block" type="button" onclick="register()">Submit</button>
 		</form>
-	
-		
-		
-		
 	</div>
 	</div>
 			<!--/.col-xs-12.col-sm-9-->
