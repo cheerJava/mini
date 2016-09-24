@@ -20,4 +20,6 @@ public interface OrderService {
 	
 	public void delete(String orderId);
 	
+	public boolean checkDuplcationTitle(String title);
+	
 }

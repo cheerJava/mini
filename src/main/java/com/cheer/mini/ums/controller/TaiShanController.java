@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cheer.mini.base.Page;
 import com.cheer.mini.ums.dto.TaishanView;
@@ -79,6 +80,16 @@ public class TaiShanController {
 		}
 		return list(view, model);
 	};
+	
+	
+	@ResponseBody
+	@RequestMapping("/checkDuplcationTitle")
+	public String checkDuplcationTitle(@ModelAttribute TaishanView view){
+		if(orderService.checkDuplcationTitle(view.getEditInfo().getTitle())){
+			return "false";
+		}
+		return "true";
+	}
 	
 	
 	@RequestMapping("/delete")

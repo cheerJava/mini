@@ -154,6 +154,20 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.selectCountByExample(example);
 	}
 
+	@Override
+	public boolean checkDuplcationTitle(String title) {
+		OrderExample example = new OrderExample();
+		example.createCriteria().andTitleEqualTo(title)
+			.andIsValidEqualTo((byte)1);
+		
+		List<Order> list = orderMapper.selectByExample(example);
+		if(list!=null && !list.isEmpty()){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
 	/***
 	 * public void commonProcess(){
 	 * 
