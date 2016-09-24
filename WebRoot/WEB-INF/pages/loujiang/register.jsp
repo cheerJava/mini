@@ -17,6 +17,23 @@ $(function(){
 	});
 });
 </script> -->
+
+<script>
+	$(function(){
+		$("#form").validate({
+			rules:{
+				password:"setPwd"
+			}
+		});
+		$("#btnSubmit").click(function(){
+			if($("#form").valid()){
+				alert("Validation Success.");
+			}
+		});
+	});
+</script>
+
+
 <style type="text/css">
 	body {
 	  padding-top: 40px;
@@ -77,7 +94,11 @@ $(function(){
 			<input name ="accountTypeFk" type="form-control" class="form-control" placeholder="accountTypeFk" required>
 			<input name = "account" class="form-control" placeholder="account" required autofocus>
 			<input name ="password" type="password" class="form-control" placeholder="Password" required>
-			<button id="submit" class="btn btn-lg btn-primary btn-block" type="button" onclick="register()">Submit</button>
+			
+			<input id="birthday" type="text" class="form-control">
+			
+			
+			<button id="btnSubmit" class="btn btn-lg btn-primary btn-block" type="button" onclick="register()">Submit</button>
 		</form>
 	
 		
@@ -93,6 +114,8 @@ $(function(){
 
 	</div>
 	<!--/.container-->
-
+	<script type="text/javascript">
+		$("#birthday").datetimepicker();
+	</script>
 </body>
 </html>
