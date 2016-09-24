@@ -7,9 +7,10 @@
   <link href="${path}/styles/offcanvas.css" rel="stylesheet">
   <link href="${path}/styles/daterangepicker-bs3.css" rel="stylesheet">
   <link href="${path}/styles/bootstrap-datetimepicker.min.css" rel="stylesheet">
-  <script src="${path}/scripts/common/util.js?20150627"></script>
-
- 
+  <link href="${path}/resources/jquery-validation/1.11.1/validate.css" rel="stylesheet">
+  <link href="${path}/resources/plugins/datetime/bootstrap-datepicker3.css" rel="stylesheet">
+  
+  <script src="${path}/scripts/common/util.js?20150627"></script> 
   
   <!-- bootstrap-select CSS -->
   <link href="${path}/styles/bootstrap-select.css" rel="stylesheet">
@@ -23,6 +24,9 @@
   <script src="${path}/resources/plugins/sidebar/offcanvas.js"></script>
   
   <script src="${path}/resources/plugins/datetime/moment.min.js"></script>
+  <script src="${path}/resources/plugins/datetime/bootstrap-datepicker.js"></script>
+  <script src="${path}/resources/plugins/datetime/bootstrap-datepicker.zh-CN.js"></script>
+  
   <script src="${path}/resources/plugins/datetime/daterangepicker.js"></script>
   <script src="${path}/resources/plugins/datetime/bootstrap-datetimepicker.min.js"></script>
   <script src="${path}/resources/plugins/datetime/bootstrap-datetimepicker.zh-CN.js"></script>
@@ -31,6 +35,8 @@
   
   <!-- JQuery-validation JS -->
   <script src="${path}/resources/jquery-validation/1.11.1/jquery.validate.min.js"></script>
+  <script src="${path}/scripts/common/validation.js"></script>
+  
   <script src="${path}/resources/jquery-validation/1.11.1/messages_bs_zh.js"></script>
   
   <!-- bootstrap-select JS -->

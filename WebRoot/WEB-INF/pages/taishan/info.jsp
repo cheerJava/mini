@@ -9,32 +9,38 @@
 		<div class="panel-heading">订单详情</div>
 		<div class="panel-body">
 			<form:form action="${pageContext.request.contextPath}/taishan/save"
-				method="post" modelAttribute="view">
+				method="post" modelAttribute="view"> <!-- id='view' -->
 				<form:hidden path="condition.status" />
 				<form:hidden path="editInfo.id" />
-				
 				<layout:Page page="${view.page}" isView="false" />
-
 				<div class="form-group">
 					<label>标题</label>
 					<form:input id="title" path="editInfo.title" cssClass="form-control" />
+					<!-- class="form-control required" -->
 				</div>
 
 				<div class="form-group">
 					<label>金额</label>
-					<form:input path="editInfo.amount" cssClass="form-control" />
+					<form:input id="amount" path="editInfo.amount" cssClass="form-control" />
 				</div>
 
 				<div class="form-group">
 					<label>备注</label>
-					<form:input path="editInfo.remark" cssClass="form-control" />
+					<form:input id="remarks" path="editInfo.remark" cssClass="form-control" />
 				</div>
 
 				<div class="form-group">
 					<label>状态</label>
-					<form:input path="editInfo.status" cssClass="form-control" />
+					<form:input id="status" path="editInfo.status" cssClass="form-control" />
 				</div>
-
+				
+				<div class="form-group">
+					<label>发货日期</label>
+					
+					<input type="text" id="sentDate" class="calendar" >
+					
+					<input type="text" id="othersDate" class="calendar" >
+				</div>
 
 
 				<table width="100%">
@@ -71,7 +77,7 @@
 							value="添加" onclick="addItem()"></td>
 					</tr>
 				</table>
-				<input class="btn btn-primary" type="button" onclick="save()" value="保存">
+				<input class="btn btn-primary" id="btnSave" type="button" value="保存">
 				<input class="btn btn-default" type="button" value="取消"
 					onclick="cancel()">
 			</form:form>
@@ -79,14 +85,53 @@
 	</div>
 
 	<script>
+		$(function(){
+			$("#view").validate({
+				rules:{
+					"editInfo.title": {
+						required:true,
+						minlength:5,
+						remote: "${pageContext.request.contextPath}/taishan/checkDuplcationTitle?editInfo.title="+$("#title").val()
+					},
+					"editInfo.amount": "required"
+				},
+				messages: {
+					"editInfo.title": {
+						required:"标题是必填字段",
+						minlength:"标题长度必需大于4",
+						remote : "标题已经存在"
+					},
+					"editInfo.amount": "金额是必填字段"
+				},
+				errorPlacement: function(error, element) {
+					if (element.is(":checkbox")||element.is(":radio")){
+						error.appendTo(element.parent().parent());
+					} else {
+						error.insertAfter(element);
+					}
+				},
+				submitHandler: function(form){
+					//loadImage
+					$.submitForm($(form));
+				},
+			});
+			
+			$("#btnSave").click(function(){
+				if($("#view").valid()){
+					$.submitForm(document.forms[0]);
+				}
+			});
+			
+			///
+		})
+		
+		/**
 		function save(){
-			var _title = $("#title").val();
-			if(_title==null || _title==''){
-				$.msg("标题不能为空!",'danger');
-				return;
+			if($("#view").valid()){
+				
 			}
-			$.submitForm(document.forms[0]);
 		}
+		***/
 		function cancel(){
 			document.forms[0].action = "${pageContext.request.contextPath}/taishan/list";
 			document.forms[0].submit();

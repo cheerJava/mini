@@ -17,6 +17,23 @@ $(function(){
 	});
 });
 </script> -->
+
+<script>
+	$(function(){
+		$("#form").validate({
+			rules:{
+				password:"setPwd"
+			}
+		});
+		$("#btnSubmit").click(function(){
+			if($("#form").valid()){
+				alert("Validation Success.");
+			}
+		});
+	});
+</script>
+
+
 <style type="text/css">
 	body {
 	  padding-top: 40px;
@@ -71,13 +88,13 @@ $(function(){
 	<div class="container">
 		<form class="form-signin" role="form" id="form" modelAttribute="view" action="">
 			<h2 class="form-signin-heading">Please Register</h2>
-			<input name = "name" class="form-control" placeholder="name" required autofocus>
-			<input name = "nickname" class="form-control" placeholder="nickname" required autofocus>
-			<input name = "gender" class="form-control" placeholder="Gender 男：1 女：2" required autofocus>
-			<input name ="accountTypeFk" type="form-control" class="form-control" placeholder="accountTypeFk" required>
-			<input name = "account" class="form-control" placeholder="account" required autofocus>
-			<input name ="password" type="password" class="form-control" placeholder="Password" required>
-			<button id="submit" class="btn btn-lg btn-primary btn-block" type="button" onclick="register()">Submit</button>
+			<input name = "name" class="form-control" placeholder="name">
+			<input name = "nickname" class="form-control" placeholder="nickname">
+			<input name = "gender" class="form-control" placeholder="Gender 男：1 女：2">
+			<input name ="accountTypeFk" type="form-control" class="form-control" placeholder="accountTypeFk">
+			<input name = "account" class="form-control" placeholder="account" >
+			<input name ="password" type="password" class="form-control" placeholder="Password">
+			<button id="btnSubmit" class="btn btn-lg btn-primary btn-block" type="button">Submit</button>
 		</form>
 	
 		
