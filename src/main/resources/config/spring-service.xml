@@ -28,4 +28,9 @@
 		<property name="configLocation" value="classpath:ehcache-local.xml" />
 	</bean>
 	
+	 <bean id="localFileService" class="com.cheer.mini.base.repository.LocalFileService">
+    	<property name="repositoryPath" value="/Users/zhaofeng/mini/run/repository" />
+        <property name="bufferLength" value="16384" />
+    </bean>
+ 	
 </beans>

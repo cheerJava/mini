@@ -3,6 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="layout" tagdir="/WEB-INF/tags/layout"%>
+<%@ taglib prefix="field" tagdir="/WEB-INF/tags/field"%>
+
 
 <layout:Default pageId="orderInfo">
 	<div class="panel panel-primary">
@@ -34,7 +36,10 @@
 					<label>状态</label>
 					<form:input path="editInfo.status" cssClass="form-control" />
 				</div>
-
+				<div class="form-group">
+					<label>头像</label>
+					<field:images suffixName="editInfo" styleId="head" preffixName="avte" limit="1" />
+				</div>
 
 
 				<table width="100%">
