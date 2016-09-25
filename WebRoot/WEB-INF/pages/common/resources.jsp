@@ -60,3 +60,8 @@
 	var app_error_network = "网络错误，请稍后再试！";
    </script>
   <script src="${path}/scripts/common/extends.js"></script>
+  <script src="${path}/scripts/common/image-upload.js"></script>
+  <script src="${path}/resources/ajaxFileUploaderV2.1/ajaxfileupload-field-image.js"></script>
+  
+  
+  

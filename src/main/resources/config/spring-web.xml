@@ -53,5 +53,12 @@
 	
 	<!-- Spring MVC的统一异常处理 -->
    <bean class="com.cheer.mini.base.exception.ExceptionHandler" id="exceptionResolver" ></bean>
+   
+   <bean id="multipartResolver" 
+   		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+   		<property name="uploadTempDir" value="/cheer/run/uploadTemp" />
+   		<property name="maxUploadSize" value="1048576" />
+   </bean>
+   
 
 </beans>

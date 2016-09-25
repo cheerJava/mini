@@ -83,7 +83,8 @@ public class UserController {
 	  public ResponseEntity<ResultEntity> add(final HttpServletRequest request, final HttpServletResponse
 	 response,@RequestBody CustomerUserCreateRequest
 	  customerUserCreateRequest) { 
-	System.out.println("fangfa"); 
+		  logger.info("Input Params[CustomerUserCreateRequest] -> " + customerUserCreateRequest); 
+		
 	ResultEntity result = null; 
 	System.out.println(customerUserCreateRequest.getGender());
 	  int user = userService.createUser(customerUserCreateRequest); 

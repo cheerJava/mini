@@ -17,7 +17,7 @@ public class LocalFileService {
 	
 	private transient Logger log = LoggerFactory.getLogger(getClass());
 	
-	public static final String FILE_SEPARATOR = File.separator;
+	public static final String FILE_SEPARATOR = "/";
 	
 	private DateFormat df = new SimpleDateFormat("yyyyMMdd");
 	
