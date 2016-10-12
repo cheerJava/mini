@@ -1,0 +1,91 @@
+<project name="mini" basedir="./" default="war">
+	<property file="${basedir}/build.properties" />
+	<!-- Project settings -->
+	<property name="project.distname" value="mini" />
+	<!-- Local system paths -->
+	<property name="project.code" value="${basedir}/src/main/java" />
+	<property name="project.source" value="${basedir}/src/main/resources" />
+	<property name="project.target" value="${basedir}/target" />
+	<property name="project.lib" value="${basedir}/WebRoot/WEB-INF/lib" />
+	<!-- 
+	<import file="${tomcat.home}/bin/catalina-tasks.xml" />
+	-->
+	<path id="compile.classpath">
+		<fileset dir="${project.lib}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<target name="clean" description="Prepare for clean build">
+		<delete dir="${project.target}" />
+		<mkdir dir="${project.target}" />
+	</target>
+	
+	<!-- Normal build of application -->
+	<target name="compile" depends="clean">
+	    <mkdir dir="${project.target}/classes" />
+		<javac source="1.7" srcdir="${project.code}"
+		    destdir="${project.target}/classes" includes="**/*.java">
+			<classpath refid="compile.classpath" />
+		</javac>
+	<!--
+	<javadoc destdir="${project.docs}/online"
+           author="true"
+           version="true"
+           use="true">
+			<fileset dir="${project.dist}/src" defaultexcludes="yes">
+				<include name="com/agd/**"/>
+			</fileset>
+		</javadoc>
+		-->
+	</target>
+	
+	
+	<target name="resources" depends="compile">
+		<copy todir="${project.target}/classes">
+			<fileset dir="${project.source}"
+				includes="**/*"/>
+		</copy>
+		<!--todo-->
+	</target>
+	
+	<!--Prepre lib and common classes -->
+	
+	<target name="prepare" depends="resources">
+		<mkdir dir="${project.target}/${project.distname}"/>
+		<copy todir="${project.target}/${project.distname}">
+			<fileset dir="${basedir}/WebRoot" includes="**/*" />
+		</copy>
+		<mkdir dir="${project.target}/${project.distname}/WEB-INF/classes"/>
+		<copy todir="${project.target}/${project.distname}/WEB-INF/classes">
+			<fileset dir="${project.target}/classes" includes="**/*" />
+		</copy>
+	</target>
+	
+	<target name="war" depends="prepare">
+		<war destfile="${project.target}/${project.distname}.war">
+			<fileset dir="${project.target}/${project.distname}">
+				<include name="**/*" />
+			</fileset>
+		</war>
+	</target>
+	
+	<!--
+	<target name="compile-jsp" depends="war">
+		<mkdir dir="${project.target}/jsp-src"/>
+		<mkdir dir="${project.target}/jsp-target"/>
+		<jasper validateXml="false" uriroot="${project.target}/${project.distname}" outputDir="${project.dist}/jsp-src">
+		</jasper>
+		<javac srcdir="${project.dist}/jsp-src" destdir="${project.dist}/jsp-target" includes="**/*.java">
+			<classpath refid="compile.classpath" />
+			<classpath>
+				<pathelement location="${project.target}/classes" />
+				<fileset dir="${tomcat.home}/bin">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	-->
+	
+</project>

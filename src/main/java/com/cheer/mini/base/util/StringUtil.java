@@ -1,4 +1,5 @@
-﻿package com.cheer.mini.base.util;
+package com.cheer.mini.base.util;
+
 
 import java.util.Random;
 

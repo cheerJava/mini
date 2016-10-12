@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="field" tagdir="/WEB-INF/tags/field" %>
 
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -19,18 +20,7 @@ $(function(){
 </script> -->
 
 <script>
-	$(function(){
-		$("#form").validate({
-			rules:{
-				password:"setPwd"
-			}
-		});
-		$("#btnSubmit").click(function(){
-			if($("#form").valid()){
-				alert("Validation Success.");
-			}
-		});
-	});
+
 </script>
 
 
@@ -94,10 +84,8 @@ $(function(){
 			<input name ="accountTypeFk" type="form-control" class="form-control" placeholder="accountTypeFk" required>
 			<input name = "account" class="form-control" placeholder="account" required autofocus>
 			<input name ="password" type="password" class="form-control" placeholder="Password" required>
-			
-			<input id="birthday" type="text" class="form-control">
-			
-			
+			<field:images suffixName="salt" styleId="salt" preffixName="salt"
+				limit="1" />
 			<button id="btnSubmit" class="btn btn-lg btn-primary btn-block" type="button" onclick="register()">Submit</button>
 		</form>
 	</div>
@@ -112,6 +100,34 @@ $(function(){
 	<!--/.container-->
 	<script type="text/javascript">
 		$("#birthday").datetimepicker();
+		
+		
+		function register()
+		{
+			$("input[name='salt.[0].salt']").attr("name","salt");
+			var formData = $("#form").serialize2Json();
+			console.log(formData);
+			$.ajax({
+			type :"POST",
+			contentType : "application/json;charset=utf-8",
+			url : _path+"/loujiang/add",
+			dataType : "json",
+			data : JSON.stringify(formData),
+			success : function(data) {
+				if (data.status == "S") {
+					window.location = _path + "/loujiang/list";
+				} else if (data.status == "F") {
+					//alert(data.message);	
+					window.location = _path + "/loujiang/list";
+				}
+			},
+			error : function() {
+				//alert("error");
+				window.location = _path + "/loujiang/list";
+			}
+		});			
+		}
+
 	</script>
 </body>
 </html>

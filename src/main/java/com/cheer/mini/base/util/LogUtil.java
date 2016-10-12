@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 public class LogUtil {
 
     /**
-     * info: 记录消息提示级别的日�?
+     * info: 记录消息提示级别
      * 
      */
     public static void info(Class<?> clazz, String message) {
@@ -13,7 +13,7 @@ public class LogUtil {
     }
 
     /**
-     * debug: 记录�?��调试级别日志
+     * debug: 记录消息调试级别
      * 
      */
     public static void debug(Class<?> clazz, String message) {

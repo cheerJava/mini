@@ -1,8 +1,10 @@
 package com.cheer.mini.ums.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,7 +28,9 @@ import com.cheer.mini.ums.service.UserService;
 @Controller
 @RequestMapping("/ums/user")
 public class LoginController {
-
+	
+	private Logger logger = Logger.getLogger(getClass());
+	
 	@Autowired
 	private UserService userService;
 
@@ -41,14 +45,27 @@ public class LoginController {
 	@RequestMapping(value = "/validatelogin")
 	public ResponseEntity<ResultEntity> validateLogin(
 			final HttpServletRequest request,
+			HttpServletResponse response,
 			@RequestBody LoginRequest loginRequest, UriComponentsBuilder builder)
 			throws ServiceException, Exception {
+		logger.info("Input Param [loginRequest] -> " +loginRequest);
 		ResultEntity result = null;
 		User user = userService.adminLogin(loginRequest.getAccount(),
 				loginRequest.getPassword());
 		request.getSession().setAttribute(Constants.CURRENT_USER, user);
 		result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS,
 				"登录成功", user);
+		
+		if(loginRequest.getRememberMe()){
+			Cookie loginInfo = new Cookie("accountInfo",
+					loginRequest.getAccount() + ":" + loginRequest.getPassword());
+			response.addCookie(loginInfo);
+		}else{
+			Cookie loginInfo = new Cookie("accountInfo",
+					"");
+			response.addCookie(loginInfo);
+		}
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(builder.path("/ums/user/validatelogin")
 				.buildAndExpand().toUri());

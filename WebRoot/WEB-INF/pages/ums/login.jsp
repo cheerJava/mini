@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+\<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -53,16 +53,30 @@
 </style>
 
 
-
-
+<script>
+$(function(){
+	var accountInfo = document.cookie;
+	if(accountInfo!=null && accountInfo!=''){
+		var _accountInfo = accountInfo.
+			substring(accountInfo.indexOf("=") + 2,accountInfo.length-1);
+		var __accountInfo = _accountInfo.split(":");
+		var accountValue =  __accountInfo[0];
+		var pwdValue = __accountInfo[1];
+		$("#acount").val(accountValue);
+		$("#pwd").val(pwdValue);	
+	}
+	
+});
+</script>
 </head>
 <body>
 	<div class="container">
 
 		<form class="form-signin" role="form" id = "form" action="${path}/ums/user/validatelogin">
 			<h2 class="form-signin-heading">Please sign in</h2>
-			<input name = "account" class="form-control" placeholder="Account" required autofocus>
-			<input name ="password" type="password" class="form-control" placeholder="Password" required>
+			<input id="acount" name = "account" class="form-control" placeholder="Account" required autofocus>
+			<input id="pwd" name ="password" type="password" class="form-control" placeholder="Password" required>
+			<input name ="rememberMe" value="true" type="checkbox" class="form-control">记住我
 			<button class="btn btn-lg btn-primary btn-block" type="button" onclick="login()">Sign in</button>
 		</form>
 

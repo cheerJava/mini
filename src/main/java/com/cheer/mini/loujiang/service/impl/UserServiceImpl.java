@@ -40,10 +40,18 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 
 	public void encryptPassword(User user) {
-		user.setSalt(randomNumberGenerator.nextBytes().toHex());
-		String newPassword = new SimpleHash(algorithmName, user.getPassword(),
-				ByteSource.Util.bytes(user.getCredentialsSalt()), hashIterations).toHex();
-		user.setPassword(newPassword);
+		//user.setSalt(randomNumberGenerator.nextBytes().toHex());
+		//String newPassword = new SimpleHash(algorithmName, user.getPassword(),
+		//		ByteSource.Util.bytes(user.getCredentialsSalt()), hashIterations).toHex();
+		//user.setPassword(newPassword);
+		
+		//user.setSalt(randomNumberGenerator.nextBytes().toHex());
+				String newPassword = new SimpleHash(algorithmName, user.getPassword(),
+						ByteSource.Util.bytes(user.getCredentialsSalt()), hashIterations).toHex();
+				user.setPassword(newPassword);
+
+		
+		
 	}
 
 	/**
@@ -87,7 +95,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int createUser(CustomerUserCreateRequest userParam) throws ServiceException {
-
+		
+		/***
 		if (StringUtil.isEmpty(userParam.getAccount()))
 			throw new ServiceException("用户名不能为空");
 		if (StringUtil.isEmpty(userParam.getName()))
@@ -99,12 +108,15 @@ public class UserServiceImpl implements UserService {
 		if ((userParam.getGender() != Constants.Gender.GENDER_MALE)
 				|| (userParam.getGender() != Constants.Gender.GENDER_FEMALE))
 			throw new ServiceException("请选择性别");
+		***/
 		User user = this.getByAccount(userParam.getAccount());
 		if (user != null)
 			throw new ServiceException("该用户名已存在");
 		user = new User();
+		user.setId(StringUtil.createUUID());
 		user.setAccount(userParam.getAccount());
 		user.setGender(userParam.getGender());
+		user.setSalt(userParam.getSalt());
 		user.setCreatorFk(user.getId());
 		user.setUpdaterFk(user.getId());
 		user.setName(userParam.getName());
