@@ -18,12 +18,14 @@ window.imageRepositoryUpload = function(ele,call) {
 		//var key = UUIDjs.create().toString();
 		_fileInput.change(function(){
 			if($(this).val()!=null && $(this).val()!=''){
+				/***
 				if(!/.(jpg|jpeg|png|jpg|png)$/.test($(_fileInput).val())){   
 					$.msg("图片类型必须是,jpeg,jpg,png中的一种",'danger');
 					return false;   
 				}
+				***/
 				$.ajaxFileUpload({
-					url : _path + '/repsoitory/upload',
+					url : _path + '/repository/upload',
 					type : "post",
 					secureuri : false,
 					fileElement : _fileInput,
@@ -32,6 +34,7 @@ window.imageRepositoryUpload = function(ele,call) {
 						var _data = eval("("+jsonString+")");
 						if(_data.status == 200){
 							var url = _data.data;
+							alert(url);
 							var isEdit = false;
 							if (ele.find('img').attr('src')) {
 								isEdit = true;

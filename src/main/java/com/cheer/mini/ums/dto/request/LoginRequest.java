@@ -1,10 +1,19 @@
 package com.cheer.mini.ums.dto.request;
 
-public class LoginRequest {
+import java.io.Serializable;
 
-    private String account;
+public class LoginRequest implements Serializable {
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7476450212803988549L;
+
+	private String account;
 
     private String password;
+    
+    private Boolean rememberMe = Boolean.FALSE;
 
     public String getAccount() {
         return account;
@@ -22,4 +31,19 @@ public class LoginRequest {
         this.password = password;
     }
 
+	public Boolean getRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(Boolean rememberMe) {
+		this.rememberMe = rememberMe;
+	}
+
+	@Override
+	public String toString() {
+		return "LoginRequest [account=" + account + ", password=" + password + ", rememberMe=" + rememberMe + "]";
+	}
+	
+	
+	
 }

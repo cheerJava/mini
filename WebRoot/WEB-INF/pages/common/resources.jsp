@@ -62,4 +62,4 @@
    </script>
   <script src="${path}/scripts/common/extends.js"></script>
   <script src="${path}/scripts/common/image-upload.js"></script>
-  
+  <script src="${path}/resources/ajaxFileUploaderV2.1/ajaxfileupload-field-image.js"></script>

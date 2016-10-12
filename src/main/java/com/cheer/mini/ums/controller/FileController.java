@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.cheer.mini.base.repository.LocalFileService;
 
 @Controller
-@RequestMapping("/repsoitory")
+@RequestMapping("/repository")
 public class FileController {
 	
 	private static final Logger log = LoggerFactory.getLogger(FileController.class);
@@ -44,7 +44,9 @@ public class FileController {
 				try{
 					content = mpf.getInputStream();
 					String filePath = localFileService.saveFile(content);
-					out.print("{\"status\":200,\"data\": \""+request.getContextPath() + LocalFileService.FILE_SEPARATOR+"repsoitory/"+ filePath + "\"}");
+					String rtContent = "{\"status\":200,\"data\": \""+request.getContextPath() + "/repository/"+ filePath + "\"}";
+					log.info("Visit url:" + rtContent);
+					out.print(rtContent);
 				}catch(IOException e){
 					log.error("uploadHeadIcon error :" +e.getMessage(),e);
 				}finally{

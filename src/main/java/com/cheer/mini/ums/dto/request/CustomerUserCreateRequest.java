@@ -13,6 +13,8 @@ public class CustomerUserCreateRequest {
     private String password;
 
     private short gender;
+    
+    private String salt;
 
     private static final int accountTypeFk = Constants.AccountType.ACCOUNT_TYPE_CUSTOMER;
     
@@ -75,4 +77,20 @@ public class CustomerUserCreateRequest {
         return accountTypeFk;
     }
 
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerUserCreateRequest [name=" + name + ", nickname=" + nickname + ", account=" + account
+				+ ", password=" + password + ", gender=" + gender + ", salt=" + salt + "]";
+	}
+	
+	
+	
 }

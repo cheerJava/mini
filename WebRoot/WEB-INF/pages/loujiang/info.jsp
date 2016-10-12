@@ -41,7 +41,7 @@
 				<td>创建日期</td><td><form:input path="editInfo.dateCreate" /></td>
 			</tr>
 			
-				</td>
+			
 			
 		</table>
 		
