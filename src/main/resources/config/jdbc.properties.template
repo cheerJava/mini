@@ -18,3 +18,6 @@ jdbc.maxPoolPreparedStatementPerConnectionSize=20
 jdbc.removeAbandoned=true
 jdbc.removeAbandonedTimeout=180
 jdbc.logAbandoned=true
+
+app.mini.run.repository=/home/zhaofeng/project/mini/run/repository
+app.mini.run.uploadtemp=/home/zhaofeng/project/mini/run/uploadtemp

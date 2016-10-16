@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache updateCheck="false" name="defaultCache">
-	<diskStore path="D:/cheer/run/ehcache" />
+	<diskStore path="/home/zhaofeng/project/mini/run/ehcach" />
 	<!-- 默认缓存配置. -->
 	<defaultCache 
 		maxEntriesLocalHeap="100" 

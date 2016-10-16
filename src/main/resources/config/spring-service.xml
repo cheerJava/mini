@@ -9,7 +9,7 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!-- 扫描service包下所有使用注解的类型 -->
-
+	<context:property-placeholder location="classpath:config/jdbc.properties" />
 	<context:component-scan base-package="com.cheer.mini.**.service" />
 
 	<!-- 配置事务管理器 -->
@@ -29,7 +29,7 @@
 	</bean>
 	
 	 <bean id="localFileService" class="com.cheer.mini.base.repository.LocalFileService">
-    	<property name="repositoryPath" value="/Users/zhaofeng/mini/run/repository" />
+    	<property name="repositoryPath" value="${app.mini.run.repository}" />
         <property name="bufferLength" value="16384" />
     </bean>
  	
